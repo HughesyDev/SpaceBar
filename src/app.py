@@ -77,14 +77,10 @@ def response(answer):
         if answer == 1:   # create Round
             round_confirmation()
         if answer == 2:   # print person
-            print("\n")
             create_table("people", people)
-            print("\n")
             run_again()
         elif answer == 3: # print drinks
-            print("\n")
             create_table("drinks", drinks)
-            print("\n")
             run_again()
         elif answer == 4: # Add person
             print("Enter a name to add: ")
@@ -95,7 +91,6 @@ def response(answer):
             drink_to_add = input(">>> ")
             add_to_list(drinks, drink_to_add)
         elif answer == 6: # define favourites
-            print("\n")
             print("Please enter a name: ")
             name = input(">>> ")
             
