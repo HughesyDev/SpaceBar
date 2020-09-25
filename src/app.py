@@ -143,15 +143,15 @@ def round_submenu_choice(choice):
     print("\nEnter your selection: ")
     answer = input(">>> ")
 
-    if answer == 1:
+    if answer == 1: # add order to round
         name = input("Enter a name:\n>>> ")
         drink - input("What drink:\n>>> ")
 
-    elif answer == 2:
+    elif answer == 2: # check curr round info
         pass
-    elif answer == 3:
+    elif answer == 3: # finalise order, print receipt
         pass
-    elif answer == 4:
+    elif answer == 4: # cancel round and exit to menu
         menu()
 
 
