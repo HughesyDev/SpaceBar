@@ -6,6 +6,8 @@ from src.core.persistence.data_persistence import save_data
 from src.core.formatting.formatting_funcs import menu_text, get_table_width, print_header, print_line, menu_text, create_table
 from src.models.Round import Round
 
+# Testing that SSH Auth is working alreet
+
 '''
  - Personalise it! SpaceBar!
  - Alcoholic, non-alc, age limit (ask for age then show either all or non-alcoholic)
