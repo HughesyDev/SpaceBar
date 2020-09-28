@@ -19,6 +19,24 @@ from src.models.Round import Round
  - Print a receipt.
 '''
 
+def greeting_ascii_art():
+    
+    
+    print('''
+    
+   _____                      ____             
+  / ____|                    |  _ \            
+ | (___  _ __   __ _  ___ ___| |_) | __ _ _ __ 
+  \___ \| '_ \ / _` |/ __/ _ \  _ < / _` | '__|
+  ____) | |_) | (_| | (_|  __/ |_) | (_| | |   
+ |_____/| .__/ \__,_|\___\___|____/ \__,_|_|   
+        | |                                    
+        |_|                                        
+''')
+input("Press Enter to access the menu!")
+
+greeting_ascii_art()
+
 drinks = []
 people = []
 preferences = {}
