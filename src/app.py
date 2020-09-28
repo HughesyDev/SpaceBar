@@ -65,7 +65,7 @@ def test_add_to_drinks_list_success():
 '''test_add_to_drinks_list_success()'''
 
 def get_int_input():
-    
+    pass
 
 def menu():
     '''# Base menu that displays on program start'''
@@ -223,13 +223,11 @@ def run_again():
             break
 
 def start():
-    """Loads data from file into data structs, then starts the menu"""
-    if __name__ == "__main__":
-        load_data()
-        maingreeter()
-        os.system("clear")
-        menu()
+        load_data()         # load data from file into people, drinks list.
+        maingreeter()       # display ASCII greeter, waits for any input
+        os.system("clear")  # clear screen to refine display
+        menu()              # call menu, ASCII replaced by identical art, menu displays underneath
         
-
 # Entry point
-start()
+if __name__ == "__main__":
+    start()
