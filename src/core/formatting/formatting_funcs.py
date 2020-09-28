@@ -15,7 +15,7 @@ def get_table_width(title, data):
     return longest + additional_spacing
 
 def menu_text():
-    print("\nSelect an option by entering a number:")
+    print("Select an option by entering a number:\n")
     print("[1] Order a round")
     print("[2] List of people")
     print("[3] List of drinks")

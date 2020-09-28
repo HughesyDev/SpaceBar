@@ -1,10 +1,10 @@
 import csv
 import unittest
-from os import system, name
+import os, sys
 from src.constants import PEOPLE_FILEPATH, DRINKS_FILEPATH
 from src.core.persistence.data_persistence import save_data
 from src.core.formatting.formatting_funcs import menu_text, get_table_width, print_header, print_line, menu_text, create_table
-from src.core.formatting.ascii import greeting_ascii_art
+from src.core.formatting.ascii_greeter import maingreeter, greeting_ascii_art
 from src.models.Round import Round
 
 # Testing that SSH Auth is working alreet
@@ -13,16 +13,11 @@ from src.models.Round import Round
 
 '''
  - Personalise it! SpaceBar!
- - Alcoholic, non-alc, age limit (ask for age then show either all or non-alcoholic)
  - Testing Suite
  - Use more OOP
  - Generate Unique ID for their order
  - Print a receipt.
 '''
-
-
-
-greeting_ascii_art()
 
 drinks = []
 people = []
@@ -69,13 +64,15 @@ def test_add_to_drinks_list_success():
 '''test_add_to_people_list_success()'''
 '''test_add_to_drinks_list_success()'''
 
-# DUMMY ADD TO TEST GIT ROLLBACK
+def get_int_input():
+    
 
 def menu():
     '''# Base menu that displays on program start'''
+    greeting_ascii_art()
     menu_text()
     answer = input("\nEnter your selection: ")
-    response(int(answer)) # send input to response func
+    response(answer)
 
 def response(answer):
     '''# Process the users response'''
@@ -229,7 +226,10 @@ def start():
     """Loads data from file into data structs, then starts the menu"""
     if __name__ == "__main__":
         load_data()
+        maingreeter()
+        os.system("clear")
         menu()
+        
 
 # Entry point
 start()
