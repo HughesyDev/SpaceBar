@@ -31,3 +31,4 @@ def create_table(title, data):
     for item in data:
         print("| " + item + (" " * (width-1 - len(item))) + "|")
     print_line(width)
+    print('\n')

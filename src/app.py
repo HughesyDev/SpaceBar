@@ -1,18 +1,14 @@
 import csv
 import unittest
 import os, sys
+import time
 from src.constants import PEOPLE_FILEPATH, DRINKS_FILEPATH
 from src.core.persistence.data_persistence import save_data
 from src.core.formatting.formatting_funcs import menu_text, get_table_width, print_header, print_line, menu_text, create_table
 from src.core.formatting.ascii_greeter import maingreeter, greeting_ascii_art
 from src.models.Round import Round
 
-# Testing that SSH Auth is working alreet
-
-# I MADE THESE CHANGES ON test-branch
-
 '''
- - Personalise it! SpaceBar!
  - Testing Suite
  - Use more OOP
  - Generate Unique ID for their order
@@ -46,33 +42,27 @@ def add_to_list(add_to, item_to_add):
     try:
         return add_to.append(item_to_add)
     except Exception as e:
-        print(f"Exception occurred: {e}")
-    pass
-
-def test_add_to_drinks_list_success():
-    # Arrange
-    target = drinks
-    drink = "Jug of Gravy"
-
-    # Act
-    add_to_list(target, drink)
-    expected = drink in drinks # should return True
-
-    # Assert
-    assert expected == True
-
-'''test_add_to_people_list_success()'''
-'''test_add_to_drinks_list_success()'''
-
-def get_int_input():
-    pass
+        print(f"Exception occurred:\n\n {e}")
+        menu()
+    menu()
 
 def menu():
     '''# Base menu that displays on program start'''
+    os.system("clear")
     greeting_ascii_art()
     menu_text()
-    answer = input("\nEnter your selection: ")
+    try:
+        answer = int(input("\nEnter your selection: "))
+    except:
+        menu()
+    print("")
+    time.sleep(.500)
     response(answer)
+    
+
+def clear_and_show_logo():
+    os.system("clear")
+    greeting_ascii_art
 
 def response(answer):
     '''# Process the users response'''
@@ -92,6 +82,8 @@ def response(answer):
             print("Enter a name to add: ")
             person_to_add = input(">>> ")
             add_to_list(people, person_to_add)
+            print(f"{item_to_add} has been added.")
+            time.sleep(1)
         elif answer == 5: # Add Drink
             print("Enter a drink to add: ")
             drink_to_add = input(">>> ")
@@ -117,11 +109,22 @@ def response(answer):
             save_data(PEOPLE_FILEPATH, people)
             save_data(DRINKS_FILEPATH, drinks)
             quit()
+        elif answer == "" or " ":
+            menu()
         else:
-            unrecognised_command()
+            os.system("clear")
+            greeting_ascii_art()
+            menu_text()
+            print("I'm sorry, I didn't understand that response, please try again.\n")
+            answer = int(input("\nEnter your selection: "))
+            response(answer)
+            os.system("clear")
+            menu()
     except Exception as e:
-        print(f"Exception raised with the following error:\n {e}")
+        os.system("clear")
+        print(f"Exception raised with the following error:\n {e}\n")
         print("Returning to Menu.")
+        os.system("clear")
         menu()
 
 def round_confirmation():
@@ -149,14 +152,12 @@ def round_submenu_choice(choice):
     if answer == 1: # add order to round
         name = input("Enter a name:\n>>> ")
         drink - input("What drink:\n>>> ")
-
     elif answer == 2: # check curr round info
         pass
     elif answer == 3: # finalise order, print receipt
         pass
     elif answer == 4: # cancel round and exit to menu
         menu()
-
 
     try:
         if answer == 1:   # Add order to round
@@ -174,7 +175,6 @@ def round_submenu_choice(choice):
         print(f"Exception raised with the following error:\n {e}")
         print("Returning to Menu.")
         menu()
-
 
 def unrecognised_command():
     print("Unrecognised command")
@@ -203,8 +203,6 @@ def test_define_faves_success():
     assert expected_name_in_faves == True
     assert expected_drink_in_faves == True
 
-'''test_define_faves_success()'''
-
 def print_faves():
     if not preferences:
         print("\nNo favourites have been added yet.\n")
@@ -217,7 +215,7 @@ def run_again():
     '''# Prompts user to hit Enter to return to the menu'''
     while True:
         try:
-            _answer = input("Press enter to return to the menu.")
+            _answer = input("\nPress enter to return to the menu.")
             menu()
         except EOFError:
             break
