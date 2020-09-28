@@ -4,6 +4,7 @@ from os import system, name
 from src.constants import PEOPLE_FILEPATH, DRINKS_FILEPATH
 from src.core.persistence.data_persistence import save_data
 from src.core.formatting.formatting_funcs import menu_text, get_table_width, print_header, print_line, menu_text, create_table
+from src.core.formatting.ascii import greeting_ascii_art
 from src.models.Round import Round
 
 # Testing that SSH Auth is working alreet
@@ -19,21 +20,7 @@ from src.models.Round import Round
  - Print a receipt.
 '''
 
-def greeting_ascii_art():
-    
-    
-    print('''
-    
-   _____                      ____             
-  / ____|                    |  _ \            
- | (___  _ __   __ _  ___ ___| |_) | __ _ _ __ 
-  \___ \| '_ \ / _` |/ __/ _ \  _ < / _` | '__|
-  ____) | |_) | (_| | (_|  __/ |_) | (_| | |   
- |_____/| .__/ \__,_|\___\___|____/ \__,_|_|   
-        | |                                    
-        |_|                                        
-''')
-input("Press Enter to access the menu!")
+
 
 greeting_ascii_art()
 
