@@ -9,12 +9,11 @@
 # TESTS NEEDED for technical rubric
 # TODO: Test for drink / person validation
 # TODO: Test that preferences are added correctly
-### TODO: Making a round (isInstance?)
-### TODO: Assign a brewer (in my case, "bill-payer") to a Round
-### TODO: Printing a Round
+# TODO: Making a round (isInstance?)
+# TODO: Assign a brewer (in my case, "bill-payer") to a Round
+# TODO: Printing a Round
 
 # TODO: Do clear() after every command? Make it look "cleaner"
-
 
 # Separate Testing logic to new module
 # Make Python --m Unittest.py or something work. Test Suite
