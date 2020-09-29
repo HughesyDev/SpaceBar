@@ -2,7 +2,7 @@ import csv
 import unittest
 import os, sys
 import time
-from ./src.constants import PEOPLE_FILEPATH, DRINKS_FILEPATH
+from constants import PEOPLE_FILEPATH, DRINKS_FILEPATH
 from ./src.core.persistence.data_persistence import save_data
 from ./src.core.formatting.formatting_funcs import menu_text, get_table_width, print_header, print_line, menu_text, create_table
 from ./src.core.formatting.ascii_greeter import maingreeter, greeting_ascii_art
@@ -14,7 +14,7 @@ from ./src.models.Round import Round
  - Generate Unique ID for their order
  - Print a receipt.
 '''
-
+  
 drinks = []
 people = []
 preferences = {}

@@ -1,3 +1,6 @@
+# localhost equiv for Docker Toolbox:
+# 192.168.99.100:8080
+
 TODO: 6  Can you add drink preferences by ID of person/drink?
 TODO: 7  Can you create a round? (round class)
 TODO: 8 Are drink preferences persisted?
