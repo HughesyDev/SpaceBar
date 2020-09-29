@@ -8,13 +8,6 @@ from ./src.core.formatting.formatting_funcs import menu_text, get_table_width, p
 from ./src.core.formatting.ascii_greeter import maingreeter, greeting_ascii_art
 from ./src.models.Round import Round
 
-'''
- - Testing Suite
- - Use more OOP
- - Generate Unique ID for their order
- - Print a receipt.
-'''
-  
 drinks = []
 people = []
 preferences = {}
@@ -49,7 +42,7 @@ def add_to_list(add_to, item_to_add):
 def menu():
     '''# Base menu that displays on program start'''
     os.system("clear")
-    greeting_ascii_art()
+    #greeting_ascii_art()
     menu_text()
     try:
         answer = int(input("\nEnter your selection: "))
@@ -222,7 +215,7 @@ def run_again():
 
 def start():
         load_data()         # load data from file into people, drinks list.
-        maingreeter()       # display ASCII greeter, waits for any input
+        #maingreeter()       # display ASCII greeter, waits for any input
         os.system("clear")  # clear screen to refine display
         menu()              # call menu, ASCII replaced by identical art, menu displays underneath
         
