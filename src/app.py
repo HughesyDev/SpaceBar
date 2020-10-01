@@ -59,14 +59,14 @@ def response(answer):
 
         elif answer == 4: # Add person
             print("Enter a name to add: ")
-            person_to_add = input(">>> ")
+            person_to_add = input(">>> ").strip()
             add_to_list(people, person_to_add)
             print(f"{item_to_add} has been added.")
             time.sleep(1)
 
         elif answer == 5: # Add Drink
             print("Enter a drink to add: ")
-            drink_to_add = input(">>> ")
+            drink_to_add = input(">>> ").strip()
             add_to_list(drinks, drink_to_add)
 
         elif answer == 6: # define favourites

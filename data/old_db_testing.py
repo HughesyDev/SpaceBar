@@ -7,6 +7,11 @@ import pymysql
 '''TODO: Does the drink table hold extra drink information such as temperature, milk percentage and quantity?	YES	NO'''	
 '''TODO: Does your app prevent duplicate people or drinks being entered into the database?	YES	NO'''
 
+# create func that loads people from db into an empty
+# ### loading from db into a class (?) or just into a list? Or a dict?
+# Dict comprehension feasibility?
+# List comprehension?
+
 # RE classes
 # both person and drink class should have attrib, ID, NAME, FAVE(?)
 
@@ -21,9 +26,13 @@ import pymysql
 # DB auto loads into data structs
 # When person/drink is added, connect to db, add, then pull new db info into data structs.
 
-# Fetch drink data into data dump
-# loop through data dump creating instances of drink classes out of each one
+# db testing
 
+ # id (autoincremented) and drink_name
+people_from_db = [] # id (autoincremented) and person_name
+
+
+# db is the connectio nto
 db = pymysql.connect(host="localhost", 
                     port=33066,
                     db="SpaceBar",
@@ -32,13 +41,20 @@ db = pymysql.connect(host="localhost",
                     autocommit=True
                     )
 
+# Cursor object that interacts with the db
 cursor = db.cursor()
+
+# Putting it all together
 def read_drinks_from_db():   
-    RETRIEVE_DRINKS_QUERY = 'SELECT * FROM drinks'
+
+    # The thing we say to the db
+    test_query = 'SELECT * FROM drinks'
 
     try:
-        cursor.execute(RETRIEVE_DRINKS_QUERY)
+        #print("\nBegin executing the cursor against the db")
+        cursor.execute(test_query)
 
+        #print("\nFetch all should be next")
         drinks_dump = cursor.fetchall()
 
     except error as err:
@@ -48,10 +64,14 @@ def read_drinks_from_db():
         cursor.close()
         db.close()
 
+    #print("\nThe connection has closed")
+    #print("\nPrinting drinks_from_db")
+
     for id, drink in drinks_dump:
         print(f"[{index}] - {drink}")
     
-    #for id, drink in drinks_dump:
+    for id, drink in drinks_dump:
+
 
 
 read_drinks_from_db()
