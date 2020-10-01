@@ -3,7 +3,7 @@ import pymysql
 
 
 def main2(): # Writing into table in testdb
-    connection = pymysql.connect(host="192.168.99.100", 
+    connection = pymysql.connect(host="localhost", 
                                 port=33066,
                                 user="root",
                                 password="password",
@@ -19,7 +19,7 @@ def main2(): # Writing into table in testdb
         connection.close()
 
 def main(): # reading from two tables in test db
-    connection = pymysql.connect(host="192.168.99.100", 
+    connection = pymysql.connect(host="localhost", 
                                 port=33066,
                                 user="root",
                                 password="password",

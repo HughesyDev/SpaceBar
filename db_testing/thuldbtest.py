@@ -2,7 +2,7 @@ import pymysql
 
 def ReadDatabase():
 	connection = pymysql.connect(
-		host = "192.168.99.100", # I need to use IP instead of "localhost" due to using Docker Toolbox instead of Docker Desktop
+		host = "localhost", # I need to use IP instead of "localhost" due to using Docker Toolbox instead of Docker Desktop
         port = 33066,
 		user = "root",
 		password= "password",
