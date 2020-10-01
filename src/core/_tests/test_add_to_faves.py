@@ -34,3 +34,16 @@ WTF DOES:
 
         # Assert
         self.assertEqual(expected, actual)'''
+
+'''def test_define_faves_success():
+    # Arrange
+    test_person = "TEST USER"
+    test_drink = "FAVE DRINK"
+    # Act
+    define_faves(test_person, test_drink)
+    expected_name_in_faves  = test_person in preferences.keys()
+    expected_drink_in_faves = preferences[test_person] == test_drink
+
+    # Assert
+    assert expected_name_in_faves == True
+    assert expected_drink_in_faves == True'''

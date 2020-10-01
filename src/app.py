@@ -4,15 +4,15 @@ import os, sys
 import time
 from src.constants import PEOPLE_FILEPATH, DRINKS_FILEPATH
 from src.core.persistence.data_persistence import save_data
-from src.core.formatting.formatting_funcs import menu_text, get_table_width, print_header, print_line, menu_text, create_table
+from src.core.formatting.formatting_funcs import menu_text, get_table_width, print_header, print_line, menu_text, create_table, clear_and_show_logo
 from src.core.formatting.ascii_greeter import maingreeter, greeting_ascii_art
 from src.models.Round import Round
-
-# Test from new Win10 machine
 
 drinks = []
 people = []
 preferences = {}
+
+# Prepare data, display menu, prompt for menu selection
 
 def load_data():
     global drinks
@@ -27,24 +27,10 @@ def load_data():
     except Exception as e:
         print(f"Exception raised with the following error:\n {e}")
 
-### App logic
-
-# TODO: rewrite test for round
-
-def add_to_list(add_to, item_to_add):
-    global drinks
-    global people
-    try:
-        return add_to.append(item_to_add)
-    except Exception as e:
-        print(f"Exception occurred:\n\n {e}")
-        menu()
-    menu()
-
 def menu():
     '''# Base menu that displays on program start'''
     os.system("clear")
-    #greeting_ascii_art()
+    greeting_ascii_art()
     menu_text()
     try:
         answer = int(input("\nEnter your selection: "))
@@ -54,11 +40,6 @@ def menu():
     time.sleep(.500)
     response(answer)
     
-
-def clear_and_show_logo():
-    os.system("clear")
-    greeting_ascii_art
-
 def response(answer):
     '''# Process the users response'''
     global drinks
@@ -67,39 +48,32 @@ def response(answer):
     try:
         if answer == 1:   # create Round
             round_confirmation()
+
         if answer == 2:   # print person
             create_table("people", people)
             run_again()
+
         elif answer == 3: # print drinks
             create_table("drinks", drinks)
             run_again()
+
         elif answer == 4: # Add person
             print("Enter a name to add: ")
             person_to_add = input(">>> ")
             add_to_list(people, person_to_add)
             print(f"{item_to_add} has been added.")
             time.sleep(1)
+
         elif answer == 5: # Add Drink
             print("Enter a drink to add: ")
             drink_to_add = input(">>> ")
             add_to_list(drinks, drink_to_add)
+
         elif answer == 6: # define favourites
-            print("Please enter a name: ")
-            name = input(">>> ")
-            
-            if name in preferences.keys():
-                return f"{name} already has a favourite set."
+            faves_handler()
 
-            print("What is their preferred drink?")
-            fave_drink = input(">>> ")
-
-            define_faves(name, fave_drink)
-            
-            run_again()
         elif answer == 7: # print faves
-            print("\n")
             print_faves()
-            print("\n")
         elif answer == 8: # save and quit
             save_data(PEOPLE_FILEPATH, people)
             save_data(DRINKS_FILEPATH, drinks)
@@ -121,6 +95,17 @@ def response(answer):
         print("Returning to Menu.")
         os.system("clear")
         menu()
+
+# Menu selection leads to the below
+
+def add_to_list(add_to, item_to_add):
+    global drinks
+    global people
+    try:
+        return add_to.append(item_to_add)
+    except Exception as e:
+        print(f"Exception occurred:\n\n {e}")
+    menu()
 
 def round_confirmation():
     print("Who is paying for this round?")
@@ -171,32 +156,49 @@ def round_submenu_choice(choice):
         print("Returning to Menu.")
         menu()
 
-def unrecognised_command():
-    print("Unrecognised command")
-    pass
+# favourites_handling_funcs
+
+def faves_handler_check_validity(name):
+    if name not in people:
+        print(f"{name} is not recognised as a valid member of your party")
+        print("Do you want to add them to your party? [Y/n]")
+
+        try:
+            answer = input(">>> ")
+            if answer.lower() == "y" or "yes":
+                people.append(name)
+            else:
+                print("Returning to menu.")
+                time.sleep(1)
+                return menu()
+        except:
+            return menu()
+
+def faves_handler():
+    print("Please enter a name: ")
+    name = input(">>> ")
+
+    faves_handler_check_validity(name)
+
+    if name in preferences.keys():
+        return f"{name} already has a favourite set."
+
+    print("What is their preferred drink?")
+    fave_drink = input(">>> ")
+
+    define_faves(name, fave_drink)
+    run_again()
 
 def define_faves(name, fave_drink):
     global preferences
     global people
+
     try:
         preferences[name] = fave_drink
         print(f"\n{name}'s favourite now set to: {fave_drink}\n")
     except Exception as e:
         print(f"Exception raised with the following error:\n {e}")
     return
-
-def test_define_faves_success():
-    # Arrange
-    test_person = "TEST USER"
-    test_drink = "FAVE DRINK"
-    # Act
-    define_faves(test_person, test_drink)
-    expected_name_in_faves  = test_person in preferences.keys()
-    expected_drink_in_faves = preferences[test_person] == test_drink
-
-    # Assert
-    assert expected_name_in_faves == True
-    assert expected_drink_in_faves == True
 
 def print_faves():
     if not preferences:
@@ -205,6 +207,8 @@ def print_faves():
         for key, value in preferences.items():
             print(f"{str(key.title())}'s favourite: {str(value.title())}")
     run_again()
+
+# App helper runcs
 
 def run_again():
     '''# Prompts user to hit Enter to return to the menu'''
@@ -215,12 +219,13 @@ def run_again():
         except EOFError:
             break
 
+# Entry point / funcs
+
 def start():
         load_data()         # load data from file into people, drinks list.
-        #maingreeter()       # display ASCII greeter, waits for any input
+        maingreeter()       # display ASCII greeter, waits for any input
         os.system("clear")  # clear screen to refine display
         menu()              # call menu, ASCII replaced by identical art, menu displays underneath
         
-# Entry point
 if __name__ == "__main__":
     start()

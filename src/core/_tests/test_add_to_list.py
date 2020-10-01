@@ -16,7 +16,7 @@ WTF DOES:
 
 
 class Test_Add_To_List(unittest.TestCase):
-    #@patch("src.app.add_to_list")
+    @patch("src.app.add_to_list")
     def test_add_to_people_list_success(self):
         # Arrange
         people = []
@@ -30,6 +30,7 @@ class Test_Add_To_List(unittest.TestCase):
 
         # Assert
         self.assertEqual(expected, actual)
+
 
 '''class Test_Response_Func_Returns_Valid(unittest.TestCase):
     #@patch("")

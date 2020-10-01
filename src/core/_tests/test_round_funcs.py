@@ -3,6 +3,9 @@ from unittest.mock import patch
 #from unittest.mock import Mock
 from src. import add_to_list
 
+# How do you implement Mock
+# What is a patch
+
 class Test_Add_To_List(unittest.TestCase):
     #@patch("src.app.add_to_list")
     def test_add_to_people_list_success(self):
