@@ -158,7 +158,23 @@ def round_submenu_choice(choice):
 
 # favourites_handling_funcs
 
-def faves_handler_check_validity(name):
+def faves_handler():
+    print("Please enter a name: ")
+    name = input(">>> ")
+
+    faves_handler_check_name_validity(name)
+
+    if name in preferences.keys():
+        return f"{name} already has a favourite set."
+
+    print(f"Enter {name}'s preferred drink?")
+    fave_drink = input(">>> ")
+
+    faves_handler_check_drink_validity(fave_drink)
+
+    return define_faves(name, fave_drink)
+
+def faves_handler_check_name_validity(name):
     if name not in people:
         print(f"{name} is not recognised as a valid member of your party")
         print("Do you want to add them to your party? [Y/n]")
@@ -174,20 +190,10 @@ def faves_handler_check_validity(name):
         except:
             return menu()
 
-def faves_handler():
-    print("Please enter a name: ")
-    name = input(">>> ")
-
-    faves_handler_check_validity(name)
-
-    if name in preferences.keys():
-        return f"{name} already has a favourite set."
-
-    print("What is their preferred drink?")
-    fave_drink = input(">>> ")
-
-    define_faves(name, fave_drink)
-    run_again()
+def faves_handler_check_drink_validity(fave_drink):
+    if fave_drink not in drinks:
+        print(f"{fave_drink} is not a valid member of your party")
+        print("Do you want to add them to your party? [Y/n]")
 
 def define_faves(name, fave_drink):
     global preferences
