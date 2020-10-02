@@ -3,34 +3,47 @@ import unittest
 import os
 import sys
 import time
-from src.constants import PEOPLE_FILEPATH, DRINKS_FILEPATH
+from src.constants import PEOPLE_FILEPATH
+from src.constants import DRINKS_FILEPATH
 from src.core.persistence.data_persistence import save_data
-from src.core.formatting.formatting_funcs import menu_text, get_table_width, print_header, print_line, menu_text, create_table, clear_and_show_logo
+from src.core.formatting.formatting_funcs import menu_text
+from src.core.formatting.formatting_funcs import get_table_width
+from src.core.formatting.formatting_funcs import print_header
+from src.core.formatting.formatting_funcs import print_line
+from src.core.formatting.formatting_funcs import menu_text
+from src.core.formatting.formatting_funcs import create_table
+from src.core.formatting.formatting_funcs import clear_and_show_logo
 from src.core.formatting.ascii_greeter import maingreeter, greeting_ascii_art
 from src.models.Round import Round
 
 # new db stuff
-from mysql_db import connect
-from mysql_db import read_drinks_from_db
-from mysql_db import input_add_to_drinks 
-from mysql_db import write_drinks_to_db
+from src.mysql_db import connect
+from src.mysql_db import read_drinks_from_db
+from src.mysql_db import input_add_to_drinks 
+from src.mysql_db import write_drinks_to_db
+from src.mysql_db import DRINKS_DATA
+from src.mysql_db import db_data_in_str
 
+# IT'S NOT a judgy demo,it's about 
+# Present - 
+# You do need to be a competent SWE to be a DE.
 
-drinks = []
+# drinks = []
 people = []
 preferences = {}
+
 
 # Prepare data, display menu, prompt for menu selection
 
 def load_data():
-    global drinks
+    # global drinks
     global people
     try:
         with open(PEOPLE_FILEPATH, "r") as people_csv: 
             people = people_csv.read().splitlines()
 
-        with open(DRINKS_FILEPATH, "r") as drinks_csv:
-            drinks = drinks_csv.read().splitlines()
+        #with open(DRINKS_FILEPATH, "r") as drinks_csv:
+        #    drinks = drinks_csv.read().splitlines()
     
     except Exception as e:
         print(f"Exception raised with the following error:\n {e}")
@@ -44,14 +57,14 @@ def menu():
         answer = int(input("\nEnter your selection: "))
     except:
         menu()
-    print("")
     time.sleep(.500)
-    response(answer)
+    menu_response_handler(answer)
     
-def response(answer):
+def menu_response_handler(answer):
     '''# Process the users response'''
-    global drinks
     global people
+
+    print("")
 
     try:
         if answer == 1:   # create Round
@@ -62,8 +75,12 @@ def response(answer):
             run_again()
 
         elif answer == 3: # print drinks
-            create_table("drinks", drinks)
-            run_again()
+            try:
+                create_table("drinks", db_data_in_str(DRINKS_DATA))
+            except Exception as e:
+                print(f"ERROR OCCURRED: {e}")
+            finally:
+                run_again()
 
         elif answer == 4: # Add person
             print("Enter a name to add: ")
@@ -84,9 +101,10 @@ def response(answer):
             print_faves()
         elif answer == 8: # save and quit
             save_data(PEOPLE_FILEPATH, people)
-            save_data(DRINKS_FILEPATH, drinks)
+            #save_data(DRINKS_FILEPATH, drinks)
             quit()
         elif answer == "" or " ":
+            os.system("clear")
             menu()
         else:
             os.system("clear")
@@ -236,8 +254,9 @@ def run_again():
 # Entry point / funcs
 
 def start():
+        read_drinks_from_db() #now load drinks from db
         load_data()         # load data from file into people, drinks list.
-        maingreeter()       # display ASCII greeter, waits for any input
+        #maingreeter()       # display ASCII greeter, waits for any input
         os.system("clear")  # clear screen to refine display
         menu()              # call menu, ASCII replaced by identical art, menu displays underneath
         

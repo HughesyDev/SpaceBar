@@ -15,6 +15,31 @@ TODO: Do clear() after every command? Make it look cleaner/run without scrolling
 TODO: 8 Are drink preferences persisted?
 TODO: 9  Are round information persisted?
 
+'''DONE: Is there a separate python module / package for the app's data persistence?	YES	NO'''
+'''TODO: Can the app read people drinks and preferences from a mysql database?	YES	NO	'''
+'''TODO: Can the app save people drinks and preferences to a mysql database?	YES	NO	'''
+'''TODO: Does the people table include first and last names, and drink preference?	YES	NO	'''
+'''TODO: Does the drink table hold extra drink information such as temperature, milk percentage and quantity?	YES	NO'''	
+'''TODO: Does your app prevent duplicate people or drinks being entered into the database?	YES	NO'''
+
+# What you did
+# What challenges you faced.
+# Prezi for presenting it - create small demo presentation / or Google Slides
+# DEMO IS A WEEK ON TUESDAY to people from other cohort, Infinity Works people.
+
+# REMEMBER: each bit of work in feature branch is its own commit, when finished, MERGE.
+
+ # new person = provide name, then they're created on the db, 
+ # then pull the id down as the name of the instance?
+ # Person will have fave attrib, but that's set separately from db
+
+# How menu will work with DBs
+# DB auto loads into data structs
+# When person/drink is added, connect to db, add, then pull new db info into data structs.
+
+# Fetch drink data into data dump
+# loop through data dump creating instances of drink classes out of each one
+
 '''
  - Testing Suite
  - Use more OOP
