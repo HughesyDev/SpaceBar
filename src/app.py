@@ -19,34 +19,23 @@ from src.models.Round import Round
 # new db stuff
 from src.mysql_db import connect
 from src.mysql_db import read_drinks_from_db
+from src.mysql_db import read_people_from_db
 from src.mysql_db import input_add_to_drinks 
+from src.mysql_db import input_add_to_people 
 from src.mysql_db import write_drinks_to_db
+from src.mysql_db import write_people_to_db
 from src.mysql_db import DRINKS_DATA
+from src.mysql_db import PEOPLE_DATA
 from src.mysql_db import db_data_in_str
 
 # IT'S NOT a judgy demo,it's about 
 # Present - 
 # You do need to be a competent SWE to be a DE.
 
-# drinks = []
-people = []
 preferences = {}
 
 
 # Prepare data, display menu, prompt for menu selection
-
-def load_data():
-    # global drinks
-    global people
-    try:
-        with open(PEOPLE_FILEPATH, "r") as people_csv: 
-            people = people_csv.read().splitlines()
-
-        #with open(DRINKS_FILEPATH, "r") as drinks_csv:
-        #    drinks = drinks_csv.read().splitlines()
-    
-    except Exception as e:
-        print(f"Exception raised with the following error:\n {e}")
 
 def menu():
     '''# Base menu that displays on program start'''
@@ -62,8 +51,6 @@ def menu():
     
 def menu_response_handler(answer):
     '''# Process the users response'''
-    global people
-
     print("")
 
     try:
@@ -71,28 +58,18 @@ def menu_response_handler(answer):
             round_confirmation()
 
         if answer == 2:   # print person
-            create_table("people", people)
+            create_table("people", db_data_in_str(PEOPLE_DATA))
             run_again()
 
         elif answer == 3: # print drinks
-            try:
-                create_table("drinks", db_data_in_str(DRINKS_DATA))
-            except Exception as e:
-                print(f"ERROR OCCURRED: {e}")
-            finally:
-                run_again()
+            create_table("drinks", db_data_in_str(DRINKS_DATA))
+            run_again()
 
         elif answer == 4: # Add person
-            print("Enter a name to add: ")
-            person_to_add = input(">>> ").strip()
-            add_to_list(people, person_to_add)
-            print(f"{item_to_add} has been added.")
-            time.sleep(1)
+            pass
 
         elif answer == 5: # Add Drink
-            print("Enter a drink to add: ")
-            drink_to_add = input(">>> ").strip()
-            add_to_list(drinks, drink_to_add)
+            pass
 
         elif answer == 6: # define favourites
             faves_handler()
@@ -100,7 +77,7 @@ def menu_response_handler(answer):
         elif answer == 7: # print faves
             print_faves()
         elif answer == 8: # save and quit
-            save_data(PEOPLE_FILEPATH, people)
+            #save_data(PEOPLE_FILEPATH, people)
             #save_data(DRINKS_FILEPATH, drinks)
             quit()
         elif answer == "" or " ":
@@ -116,22 +93,12 @@ def menu_response_handler(answer):
             os.system("clear")
             menu()
     except Exception as e:
-        os.system("clear")
         print(f"Exception raised with the following error:\n {e}\n")
         print("Returning to Menu.")
         os.system("clear")
         menu()
 
 # Menu selection leads to the below
-
-def add_to_list(add_to, item_to_add):
-    global drinks
-    global people
-    try:
-        return add_to.append(item_to_add)
-    except Exception as e:
-        print(f"Exception occurred:\n\n {e}")
-    menu()
 
 def round_confirmation():
     print("Who is paying for this round?")
@@ -255,7 +222,7 @@ def run_again():
 
 def start():
         read_drinks_from_db() #now load drinks from db
-        load_data()         # load data from file into people, drinks list.
+        read_people_from_db() #now load drinks from db
         #maingreeter()       # display ASCII greeter, waits for any input
         os.system("clear")  # clear screen to refine display
         menu()              # call menu, ASCII replaced by identical art, menu displays underneath
