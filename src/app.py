@@ -1,12 +1,20 @@
 import csv
 import unittest
-import os, sys
+import os
+import sys
 import time
 from src.constants import PEOPLE_FILEPATH, DRINKS_FILEPATH
 from src.core.persistence.data_persistence import save_data
 from src.core.formatting.formatting_funcs import menu_text, get_table_width, print_header, print_line, menu_text, create_table, clear_and_show_logo
 from src.core.formatting.ascii_greeter import maingreeter, greeting_ascii_art
 from src.models.Round import Round
+
+# new db stuff
+from mysql_db import connect
+from mysql_db import read_drinks_from_db
+from mysql_db import input_add_to_drinks 
+from mysql_db import write_drinks_to_db
+
 
 drinks = []
 people = []

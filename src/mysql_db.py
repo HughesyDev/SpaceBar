@@ -7,15 +7,16 @@ import pymysql
 '''TODO: Does the drink table hold extra drink information such as temperature, milk percentage and quantity?	YES	NO'''	
 '''TODO: Does your app prevent duplicate people or drinks being entered into the database?	YES	NO'''
 
-# RE classes
-# both person and drink class should have attrib, ID, NAME, FAVE(?)
+# What you did
+# What challenges you faced.
+# Prezi for presenting it - create small demo presentation / or Google Slides
+# DEMO IS A WEEK ON TUESDAY to people from other cohort, Infinity Works people.
 
-# PULL DATA FROM DB DOWN INTO LIST as set of tuples
-# For row in list of people:
-# id = name of instance of person class
-# person.id
-# person.name
-# person.fave (not from db (yet) ) 
+# REMEMBER: each bit of work in feature branch is its own commit, when finished, MERGE.
+
+ # new person = provide name, then they're created on the db, 
+ # then pull the id down as the name of the instance?
+ # Person will have fave attrib, but that's set separately from db
 
 # How menu will work with DBs
 # DB auto loads into data structs
@@ -23,23 +24,28 @@ import pymysql
 
 # Fetch drink data into data dump
 # loop through data dump creating instances of drink classes out of each one
+def connect():
+    db = pymysql.connect(host="localhost", 
+                            port=33066,
+                            db="SpaceBar",
+                            user="root",
+                            password="password",
+                            autocommit=True
+                            )
+    cursor = db.cursor()
+    return db, cursor
 
-db = pymysql.connect(host="localhost", 
-                    port=33066,
-                    db="SpaceBar",
-                    user="root",
-                    password="password",
-                    autocommit=True
-                    )
 
-cursor = db.cursor()
-def read_drinks_from_db():   
+
+def read_drinks_from_db():  
+    db, cursor = connect()
+    DRINKS_DATA = {}
     RETRIEVE_DRINKS_QUERY = 'SELECT * FROM drinks'
 
     try:
-        cursor.execute(RETRIEVE_DRINKS_QUERY)
-
-        drinks_dump = cursor.fetchall()
+        with cursor:
+            cursor.execute(RETRIEVE_DRINKS_QUERY)
+            drinks_dump = cursor.fetchall()
 
     except error as err:
         print(f"ERROR with:\n{err}")
@@ -47,39 +53,33 @@ def read_drinks_from_db():
     finally:
         cursor.close()
         db.close()
-
-    for id, drink in drinks_dump:
-        print(f"[{index}] - {drink}")
     
-    #for id, drink in drinks_dump:
+    # Dump db drink data into the empty dict
+    for id, drink in drinks_dump:
+        DRINKS_DATA[id] = drink
+    
+    for id, drink in DRINKS_DATA.items():
+        print(f"[{id}] - {drink}")
 
-
-read_drinks_from_db()
+## Add to DB funcs
 
 def input_add_to_drinks():
     print("What drink do you want to add?")
     drink_to_be_added = input(">>> ").strip() #remove whitespace before/after
     write_to_db(drink_to_be_added)
 
-def write_to_db(drink_to_be_added):
+def write_drinks_to_db(drink_to_be_added):
+    db, cursor = connect()
     # The query we send to the db
     sql = 'INSERT INTO drinks (drink_name) VALUES (%s)'
     val = drink_to_be_added
 
     try:
-        print("\nBegin executing the cursor thing")
-        cursor.execute(sql, val)
-        
-        # connection is not autocommit by default. So you must commit to save
-        # your changes.
-        print("\nCommit the thing (by default now)")
-        #db.commit()
+        with cursor:
+            cursor.execute(sql, val)
     except Exception as err:
         print(f"ERROR with:\n{err}")
 
     finally:
         cursor.close()
         db.close()
-        print("\nThe connection has closed")
-
-# input_add_to_drinks()
