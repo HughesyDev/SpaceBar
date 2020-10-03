@@ -36,8 +36,6 @@ from src.mysql_db import db_prefs_in_str
 
 preferences = {}
 
-# Prepare data, display menu, prompt for menu selection
-
 def menu():
     '''# Base menu that displays on program start'''
     os.system("clear")
@@ -82,7 +80,7 @@ def menu_response_handler(answer):
         elif answer == 7: # print faves
             read_prefs_from_db()
             create_table("drink preferences", db_prefs_in_str(PREFS_DATA))
-            #run_again()
+            run_again()
 
         elif answer == 8: # save and quit
             #save_data(PEOPLE_FILEPATH, people)
@@ -106,7 +104,7 @@ def menu_response_handler(answer):
         os.system("clear")
         menu()
 
-# Menu selection leads to the below
+# Round stuff
 
 def round_confirmation():
     print("Who is paying for this round?")
@@ -160,9 +158,10 @@ def round_submenu_choice(choice):
 # favourites_handling_funcs
 
 def faves_handler():
-    pass
+    read_prefs_from_db()
+    create_table("drink preferences", db_prefs_in_str(PREFS_DATA))
 
-# App helper runcs
+# App helper funcs
 
 def run_again():
     '''# Prompts user to hit Enter to return to the menu'''
