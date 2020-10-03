@@ -3,6 +3,7 @@ import time
 
 DRINKS_DATA = {}
 PEOPLE_DATA = {}
+PREFS_DATA = {}
 
 def connect():
     db = pymysql.connect(host="localhost", 
@@ -89,10 +90,11 @@ def read_people_from_db():
         db.close()
     
     # Dump db drink data into empty PEOPLE_DATA dict
-    for id, first_name, last_name in people_dump:
+    for id, first_name, last_name, drink_id in people_dump:
         first_name = str(first_name)
         last_name = str(last_name)
-        PEOPLE_DATA[id] = first_name + " " + last_name
+        fullname = first_name.strip() + " " + last_name.strip()
+        PEOPLE_DATA[id] = fullname
 
 def input_add_to_people():
     print("Who do you want to add?")
@@ -114,6 +116,7 @@ def input_add_to_people():
 
     finally:
         return
+        
 def dupe_checker(full_name):
     if full_name in PEOPLE_DATA.values():
         print(f"{full_name} is a duplicate name and cannot be added again.")
@@ -137,6 +140,33 @@ def write_person_to_db(first_name, last_name):
         cursor.close()
         db.close()
 
+### PREFERENCES
+
+# try adding non-existing drink by ID as a fave, or an ID out of range.
+
+def read_prefs_from_db():
+    db, cursor = connect()
+    global PREFS_DATA
+    RETRIEVE_DRINKS_QUERY = 'SELECT first_name, last_name, drink_id FROM people'
+
+    try:
+        with cursor:
+            cursor.execute(RETRIEVE_DRINKS_QUERY)
+            prefs_dump = cursor.fetchall()
+
+    except error as err:
+        print(f"ERROR with:\n{err}")
+
+    finally:
+        cursor.close()
+        db.close()
+        
+    
+    for first_name, last_name, drink_id in prefs_dump:
+        fullname = first_name + " " + last_name
+        drink_id = DRINKS_DATA.get(id)
+        PREFS_DATA[fullname] = drink_id
+
 
 #### 
 
@@ -145,3 +175,12 @@ def db_data_in_str(data): # reformats db data dump from dict into string to prin
     for id, name in data.items():
         data_list.append(f"{id} | {name}")
     return data_list
+
+def db_prefs_in_str(data): # changes drink id to its name then puts both into single string
+    prefs_list = []
+
+    for name, id in data.items():
+        prefs_list.append(f"{name} | {id}")
+    return prefs_list
+
+##

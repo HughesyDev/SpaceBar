@@ -20,12 +20,15 @@ from src.models.Round import Round
 from src.mysql_db import connect
 from src.mysql_db import read_drinks_from_db
 from src.mysql_db import read_people_from_db
+from src.mysql_db import read_prefs_from_db
 from src.mysql_db import input_add_to_drinks 
 from src.mysql_db import input_add_to_people 
 from src.mysql_db import write_person_to_db
 from src.mysql_db import DRINKS_DATA
 from src.mysql_db import PEOPLE_DATA
+from src.mysql_db import PREFS_DATA
 from src.mysql_db import db_data_in_str
+from src.mysql_db import db_prefs_in_str
 
 # IT'S NOT a judgy demo,it's about 
 # Present - 
@@ -77,7 +80,10 @@ def menu_response_handler(answer):
             faves_handler()
 
         elif answer == 7: # print faves
-            print_faves()
+            read_prefs_from_db()
+            create_table("drink preferences", db_prefs_in_str(PREFS_DATA))
+            #run_again()
+
         elif answer == 8: # save and quit
             #save_data(PEOPLE_FILEPATH, people)
             #save_data(DRINKS_FILEPATH, drinks)
@@ -154,60 +160,7 @@ def round_submenu_choice(choice):
 # favourites_handling_funcs
 
 def faves_handler():
-    print("Please enter a name: ")
-    name = input(">>> ")
-
-    faves_handler_check_name_validity(name)
-
-    if name in preferences.keys():
-        return f"{name} already has a favourite set."
-
-    print(f"Enter {name}'s preferred drink?")
-    fave_drink = input(">>> ")
-
-    faves_handler_check_drink_validity(fave_drink)
-
-    return define_faves(name, fave_drink)
-
-def faves_handler_check_name_validity(name):
-    if name not in people:
-        print(f"{name} is not recognised as a valid member of your party")
-        print("Do you want to add them to your party? [Y/n]")
-
-        try:
-            answer = input(">>> ")
-            if answer.lower() == "y" or "yes":
-                people.append(name)
-            else:
-                print("Returning to menu.")
-                time.sleep(1)
-                return menu()
-        except:
-            return menu()
-
-def faves_handler_check_drink_validity(fave_drink):
-    if fave_drink not in drinks:
-        print(f"{fave_drink} is not a valid member of your party")
-        print("Do you want to add them to your party? [Y/n]")
-
-def define_faves(name, fave_drink):
-    global preferences
-    global people
-
-    try:
-        preferences[name] = fave_drink
-        print(f"\n{name}'s favourite now set to: {fave_drink}\n")
-    except Exception as e:
-        print(f"Exception raised with the following error:\n {e}")
-    return
-
-def print_faves():
-    if not preferences:
-        print("\nNo favourites have been added yet.\n")
-    else:
-        for key, value in preferences.items():
-            print(f"{str(key.title())}'s favourite: {str(value.title())}")
-    run_again()
+    pass
 
 # App helper runcs
 
@@ -224,7 +177,8 @@ def run_again():
 
 def start():
         read_drinks_from_db() #now load drinks from db
-        read_people_from_db() #now load drinks from db
+        read_people_from_db() 
+        read_prefs_from_db()
         #maingreeter()       # display ASCII greeter, waits for any input
         os.system("clear")  # clear screen to refine display
         menu()              # call menu, ASCII replaced by identical art, menu displays underneath
