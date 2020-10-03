@@ -19,14 +19,14 @@ def get_table_width(title, data):
     return longest + additional_spacing
 
 def menu_text():
-    print(" 1 | Order a round")
-    print(" 2 | Display members of your party")
-    print(" 3 | Show available drinks")
-    print(" 4 | Add a person")
-    print(" 5 | Add a drink")
-    print(" 6 | Specify favourite drink")
-    print(" 7 | Display favourites")
-    print(" 8 | Quit\n")
+    print("  1 | Order a round")
+    print("  2 | Display members of your party")
+    print("  3 | Show available drinks")
+    print("  4 | Add a person")
+    print("  5 | Add a drink")
+    print("  6 | Specify favourite drink")
+    print("  7 | Display favourites")
+    print("  8 | Quit\n")
 
 def create_table(title, data):
     width = get_table_width(title, data)

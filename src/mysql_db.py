@@ -1,4 +1,5 @@
 import pymysql
+import time
 
 DRINKS_DATA = {}
 PEOPLE_DATA = {}
@@ -71,30 +72,51 @@ def read_people_from_db():
             cursor.execute(RETRIEVE_PEOPLE_QUERY)
             people_dump = cursor.fetchall()
 
-    except error as err:
+    except Exception as err:
         print(f"ERROR with:\n{err}")
 
     finally:
         cursor.close()
         db.close()
     
-    # Dump db drink data into the empty dict
-    for id, name in people_dump:
-        PEOPLE_DATA[id] = name
-    
-    #for id, drink in DRINKS_DATA.items():
-    #    print(f"[{id}] - {drink}")
+    # Dump db drink data into empty PEOPLE_DATA dict
+    for id, first_name, last_name in people_dump:
+        first_name = str(first_name)
+        last_name = str(last_name)
+        PEOPLE_DATA[id] = first_name + " " + last_name
 
 def input_add_to_people():
-    print("Who person do you want to add?")
-    person_to_be_added = input(">>> ").strip() #remove whitespace before/after
-    write_to_db(person_to_be_added)
+    print("Who do you want to add?")
+    try:
+        first_name = input("\nFirst name:\n>>> ").strip() #remove whitespace before/after
+        last_name = input("\nLast name:\n>>> ").strip()
 
-def write_people_to_db(person_to_be_added):
+        full_name = first_name + " " + last_name
+
+        if dupe_checker(full_name):
+            return
+
+        else:
+            return write_person_to_db(first_name, last_name)
+
+    except Exception as e:
+        print(f"ERROR:\n{e}")
+        pass
+
+    finally:
+        return
+def dupe_checker(full_name):
+    if full_name in PEOPLE_DATA.values():
+        print(f"{full_name} is a duplicate name and cannot be added again.")
+        time.sleep(1)
+        return True
+
+def write_person_to_db(first_name, last_name):
     db, cursor = connect()
+
     # The query we send to the db
-    sql = 'INSERT INTO people (person_name) VALUES (%s)'
-    val = person_to_be_added
+    sql = 'INSERT INTO people (first_name, last_name) VALUES (%s, %s)'
+    val = first_name, last_name
 
     try:
         with cursor:
