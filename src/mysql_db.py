@@ -41,7 +41,11 @@ def read_drinks_from_db():
 def input_add_to_drinks():
     print("What drink do you want to add?")
     drink_to_be_added = input(">>> ").strip() #remove whitespace before/after
-    write_to_db(drink_to_be_added)
+
+    if dupe__drink_checker(drink_to_be_added):
+        return
+    else:
+        return write_drinks_to_db(drink_to_be_added)
 
 def write_drinks_to_db(drink_to_be_added):
     db, cursor = connect()
@@ -59,6 +63,11 @@ def write_drinks_to_db(drink_to_be_added):
         cursor.close()
         db.close()
 
+def dupe__drink_checker(drink):
+    if drink in DRINKS_DATA.values():
+        print(f"{drink} is a duplicate drink and cannot be added again.")
+        time.sleep(1)
+        return True
 
 ### PEOPLE
 

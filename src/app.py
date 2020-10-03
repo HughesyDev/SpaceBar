@@ -61,6 +61,7 @@ def menu_response_handler(answer):
             run_again()
 
         elif answer == 3: # print drinks
+            read_drinks_from_db()
             create_table("drinks", db_data_in_str(DRINKS_DATA))
             run_again()
 
@@ -69,7 +70,8 @@ def menu_response_handler(answer):
             run_again()
 
         elif answer == 5: # Add Drink
-            pass
+            input_add_to_drinks()
+            run_again()
 
         elif answer == 6: # define favourites
             faves_handler()
