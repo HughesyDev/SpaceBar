@@ -1,0 +1,36 @@
+- Using return statements properly, understand differences between print and return in functions.
+
+- TESTING is a big issue. Understanding a "testing mindset" and knowing what to test
+- TESTING implementation, lots of confusion around mocking and patching initially, 
+    further self-guided instruction is helping with this.
+
+- Intro & ASCII art: had some trouble implementing timing between first word and the next.
+    This was caused by a misunderstanding of the 
+
+- Structuring of the "User Interface". I wanted the app to appear as though it's a single screen.
+    I made use of the system.os("clear") method of clearing the terminal window for clarity/elegance
+    I needed to make sure I didn't clear useful information when
+    For instance, adding a person or drink, it would help the user to have the person/drink list visible
+        and not clear it. They can then double check they aren't adding a duplicate.
+    I wanted to have a mimicry of a "home screen" being the ASCII logo + menu. 
+        After a command is entered, we return to this window by clearing screen and re-printing the menu
+        This felt more responsive and usable than having the menu just be printed underneath
+        I found that the output very quickly cluttered the terminal, you could lose your place visually
+
+- Managing code cluttering
+    I quickly found it difficult to navigate the files my code was in due to the amount of code in them.
+    When files started to get to 200+ lines of code with a dozen functions, I looked into splitting into further modules.
+    i.e. you have your menu, then favourites within that.
+        Then faves has adding/changing functions, and input validation for those functions.
+
+
+Further steps / things I would like to have explored further:
+- more advanced database schema. Make more use of foreign keys
+- More OOP, make more use of subclasses (i.e. subclass of drinks being "hot" drinks or "cold" etc.)
+- Look into potentially having a more advanced vista, maybe making it appear to move
+    i.e. have dozens of ASCII art pics of a view out of a spaceport, asteroids/comets/stars
+        and the image clears and updates with a slightly different image
+        strung together, these would just be "frames" of a video
+            It would look cool if I could find premade art in the style I want
+            
+- Make table formatting neater cleaner when ID is double-digits, at present it breaks formatting.
