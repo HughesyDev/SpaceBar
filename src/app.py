@@ -22,8 +22,7 @@ from src.mysql_db import read_drinks_from_db
 from src.mysql_db import read_people_from_db
 from src.mysql_db import input_add_to_drinks 
 from src.mysql_db import input_add_to_people 
-from src.mysql_db import write_drinks_to_db
-from src.mysql_db import write_people_to_db
+from src.mysql_db import write_person_to_db
 from src.mysql_db import DRINKS_DATA
 from src.mysql_db import PEOPLE_DATA
 from src.mysql_db import db_data_in_str
@@ -33,7 +32,6 @@ from src.mysql_db import db_data_in_str
 # You do need to be a competent SWE to be a DE.
 
 preferences = {}
-
 
 # Prepare data, display menu, prompt for menu selection
 
@@ -57,7 +55,8 @@ def menu_response_handler(answer):
         if answer == 1:   # create Round
             round_confirmation()
 
-        if answer == 2:   # print person
+        if answer == 2:   # print people data
+            read_people_from_db() # asks db for an updated list of people incase this has changed.
             create_table("people", db_data_in_str(PEOPLE_DATA))
             run_again()
 
@@ -65,8 +64,9 @@ def menu_response_handler(answer):
             create_table("drinks", db_data_in_str(DRINKS_DATA))
             run_again()
 
-        elif answer == 4: # Add person
-            pass
+        elif answer == 4: # Add person to db
+            input_add_to_people()
+            run_again()
 
         elif answer == 5: # Add Drink
             pass
