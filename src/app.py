@@ -3,32 +3,14 @@ import unittest
 import os
 import sys
 import time
-from src.constants import PEOPLE_FILEPATH
-from src.constants import DRINKS_FILEPATH
+from src.constants import PEOPLE_FILEPATH, DRINKS_FILEPATH
 from src.core.persistence.data_persistence import save_data
-from src.core.formatting.formatting_funcs import menu_text
-from src.core.formatting.formatting_funcs import get_table_width
-from src.core.formatting.formatting_funcs import print_header
-from src.core.formatting.formatting_funcs import print_line
-from src.core.formatting.formatting_funcs import menu_text
-from src.core.formatting.formatting_funcs import create_table
-from src.core.formatting.formatting_funcs import clear_and_show_logo
+from src.core.formatting.formatting_funcs import menu_text,get_table_width,print_header,print_line,create_table,clear_and_show_logo
 from src.core.formatting.ascii_greeter import maingreeter, greeting_ascii_art
 from src.models.Round import Round
-
-# new db stuff
-from src.mysql_db import connect
-from src.mysql_db import read_drinks_from_db
-from src.mysql_db import read_people_from_db
-from src.mysql_db import read_prefs_from_db
-from src.mysql_db import input_add_to_drinks 
-from src.mysql_db import input_add_to_people 
-from src.mysql_db import write_person_to_db
-from src.mysql_db import DRINKS_DATA
-from src.mysql_db import PEOPLE_DATA
-from src.mysql_db import PREFS_DATA
-from src.mysql_db import db_data_in_str
-from src.mysql_db import db_prefs_in_str
+from src.mysql_db import connect, read_drinks_from_db, read_people_from_db, read_prefs_from_db 
+from src.mysql_db import input_add_to_drinks , input_add_to_people , write_person_to_db, DRINKS_DATA
+from src.mysql_db import PEOPLE_DATA, PREFS_DATA, db_data_in_str, db_prefs_in_str, faves_write_fave_to_db
 
 # IT'S NOT a judgy demo,it's about 
 # Present - 
@@ -68,16 +50,17 @@ def menu_response_handler(answer):
 
         elif answer == 4: # Add person to db
             input_add_to_people()
-            run_again()
+            menu()
 
         elif answer == 5: # Add Drink
             input_add_to_drinks()
             run_again()
 
-        elif answer == 6: # define favourites
-            faves_handler()
+        elif answer == 6: # set drink preferences
+            faves_set_drink_prefs()
+            print("\nFavourite has been set.")
 
-        elif answer == 7: # print faves
+        elif answer == 7: # print drink preferences
             read_prefs_from_db()
             create_table("drink preferences", db_prefs_in_str(PREFS_DATA))
             run_again()
@@ -157,11 +140,41 @@ def round_submenu_choice(choice):
 
 # favourites_handling_funcs
 
-def faves_handler():
-    read_prefs_from_db()
-    create_table("drink preferences", db_prefs_in_str(PREFS_DATA))
+def faves_set_drink_prefs():
+    read_people_from_db()
+    read_drinks_from_db()
 
-# App helper funcs
+    try:
+        create_table("people", db_data_in_str(PEOPLE_DATA))
+        person_id = input("\nPlease enter the ID of the user you wish to set drink preferences for:\n>>> ")
+        faves_check_person_id_valid(int(person_id))
+
+        create_table("drinks", db_data_in_str(DRINKS_DATA))
+        drink_id = input("\nPlease enter the ID of your preferred drink.\n>>> ")
+        faves_check_drink_id_valid(int(drink_id))
+        
+        faves_write_fave_to_db(person_id, drink_id)
+
+    except Exception as e:
+        print(f"ERROR:\n{e}")
+    
+    finally:
+        pass
+
+def faves_check_person_id_valid(person_id):
+    if person_id not in PEOPLE_DATA.keys():
+        print("I'm sorry, that ID was not recognised. Please enter a valid ID.\n>>> ")
+        person_id = input(">>> ")
+    return person_id
+
+def faves_check_drink_id_valid(drink_id):
+    if drink_id not in DRINKS_DATA.keys():
+        print("I'm sorry, that ID was not recognised. Please enter a valid ID.\n>>> ")
+        drink_id = input(">>> ")
+    return drink_id
+
+
+# App UX helper funcs
 
 def run_again():
     '''# Prompts user to hit Enter to return to the menu'''

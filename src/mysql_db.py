@@ -108,7 +108,7 @@ def input_add_to_people():
             return
 
         else:
-            return write_person_to_db(first_name, last_name)
+            return write_person_to_db(first_name, last_name)        
 
     except Exception as e:
         print(f"ERROR:\n{e}")
@@ -147,11 +147,11 @@ def write_person_to_db(first_name, last_name):
 def read_prefs_from_db():
     db, cursor = connect()
     global PREFS_DATA
-    RETRIEVE_DRINKS_QUERY = 'SELECT first_name, last_name, drink_id FROM people'
+    RETRIEVE_PREFS_QUERY = 'SELECT first_name, last_name, drink_id FROM people'
 
     try:
         with cursor:
-            cursor.execute(RETRIEVE_DRINKS_QUERY)
+            cursor.execute(RETRIEVE_PREFS_QUERY)
             prefs_dump = cursor.fetchall()
 
     except error as err:
@@ -164,9 +164,27 @@ def read_prefs_from_db():
     
     for first_name, last_name, drink_id in prefs_dump:
         fullname = first_name + " " + last_name
-        drink_id = DRINKS_DATA.get(id)
+        drink_id = DRINKS_DATA.get(drink_id)
         PREFS_DATA[fullname] = drink_id
 
+def faves_write_fave_to_db(person_id, drink_id):
+    db, cursor = connect()
+
+    user_id = int(person_id)
+    user_pref = int(drink_id)
+    sql = f'UPDATE people SET drink_id = ({user_pref}) WHERE id = ({user_id});'
+    
+
+    try:
+        with cursor:
+            cursor.execute(sql)
+
+    except Exception as err:
+        print(f"ERROR with:\n{err}")
+
+    finally:
+        cursor.close()
+        db.close()
 
 #### 
 
