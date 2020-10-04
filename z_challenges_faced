@@ -34,3 +34,6 @@ Further steps / things I would like to have explored further:
             It would look cool if I could find premade art in the style I want
             
 - Make table formatting neater cleaner when ID is double-digits, at present it breaks formatting.
+
+- Understanding SQL prepared statements and how SQL weaknesses come about when writing SQL.
+    (still working on this)
