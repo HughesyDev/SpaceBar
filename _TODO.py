@@ -16,6 +16,17 @@
  # What can you do for yours?
 '''
 
+# TODO: Change "Add drink" to "check if a drink you like is in stock."
+# TODO: Check what user added against a SET of many more drinks. If in stock: return it, add to db, load from db.
+
+# TODO: Add column for hot/cold drinks
+# TODO: Ask user if they want to see hot drinks or cold drinks table.
+# TODO: Hot drinks also have additional properties: milk, sugar, complementary biscuit.
+
+# TODO: Create Drinks class? Subclass for hot / cold? (STRETCH goal)
+
+# TODO: ##### Add an actual proper list of drinks.
+
 # MUST: 
 ''' DONE: Reimplement people retrieval/adding via db'''
 ''' DONE: Reimplement drinks retrieval/adding via db'''
@@ -23,8 +34,10 @@
 ''' DONE: Reimplement pref adding via db'''
 ''' DONE: Allow user to set their drink preference by name_id & drink_id'''
 ''' DONE: Amend people table to accept firstname and surname.'''
-# TODO BRANCH: Amend fields for name/surname to be NOT NULL? avoid empty entries.
-# TODO: First Draft of JDE CV -  look through CherryTree notes - "engineering secure solutions to data-related problems" etc.
+# TODO BRANCH: Add validation for adding people/drinks to catch empty strings.
+''' DONE: First Draft of JDE CV -  look through CherryTree notes'''
+
+
 
 # -----------------------
 
@@ -40,10 +53,13 @@
 # TODO BRANCH: Persist Round information in the db (if not exists, create new table for each round with nameid, drinkid, save it)
 # TODO BRANCH: Unit testing 
 # TODO BRANCH: Make intro words write onto the screen instead of appearing (so char by char display like they're typed)
-# TODO BRANCH: ETL stuff (import from CSV into file in correct format)
 # TODO: Make Python --m Unittest.py or something work. Test Suite
-# TODO: If table empty (i.e. all items deleted), then recreate table so all new items start index at 1 from the new table
 # TODO: Does the drink table hold extra drink information such as temperature, milk percentage and quantity?	YES	NO'''	
+
+
+# TODO BRANCH: ETL stuff (import from CSV into file in correct format)
+# TODO: If table empty (i.e. all items deleted), then recreate table so all new items start index at 1 from the new table
+
 
 # - Testing Suite
 # - Use more OOP
