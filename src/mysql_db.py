@@ -16,6 +16,10 @@ def connect():
     cursor = db.cursor()
     return db, cursor
 
+def input_validation(input):
+    if input == "" or " ":
+        return False
+
 ### DRINKS
 
 def read_drinks_from_db():  
@@ -41,12 +45,23 @@ def read_drinks_from_db():
 
 def input_add_to_drinks():
     print("What drink do you want to add?")
-    drink_to_be_added = input(">>> ").strip() #remove whitespace before/after
+    try: 
+        drink_to_be_added = input(">>> ").strip() #remove whitespace before/after
 
-    if dupe__drink_checker(drink_to_be_added):
+        if input_validation(drink_to_be_added):
+            pass
+        elif input_validation == False:
+            print("A blank name cannot be entered into the system.")
+            return
+
+        if dupe__drink_checker(drink_to_be_added):
+            return
+        else:
+            return write_drinks_to_db(drink_to_be_added)
+    except Exception as e:
+        print(f"ERROR:\n{e}")
+    finally:
         return
-    else:
-        return write_drinks_to_db(drink_to_be_added)
 
 def write_drinks_to_db(drink_to_be_added):
     db, cursor = connect()
@@ -104,11 +119,18 @@ def input_add_to_people():
 
         full_name = first_name + " " + last_name
 
-        if dupe_checker(full_name):
+        if input_validation(full_name):
+            pass
+        elif input_validation(full_name) == True:
+            print("Unable to add name: empty names cannot be entered into the system.")
+            return
+
+        if is_dupe_name(full_name):
             return
 
         else:
-            return write_person_to_db(first_name, last_name)        
+            write_person_to_db(first_name, last_name)
+            return  
 
     except Exception as e:
         print(f"ERROR:\n{e}")
@@ -117,7 +139,7 @@ def input_add_to_people():
     finally:
         return
         
-def dupe_checker(full_name):
+def is_dupe_name(full_name):
     if full_name in PEOPLE_DATA.values():
         print(f"{full_name} is a duplicate name and cannot be added again.")
         time.sleep(1)
