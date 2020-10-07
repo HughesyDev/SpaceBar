@@ -43,18 +43,26 @@ def read_drinks_from_db():
     for id, drink in drinks_dump:
         DRINKS_DATA[id] = drink
 
+def string_not_empty(string):
+    if string:
+        return True
+    elif string == "" or " ":
+        return False
+    else:
+        return False
+
 def input_add_to_drinks():
     print("What drink do you want to add?")
     try: 
         drink_to_be_added = input(">>> ").strip() #remove whitespace before/after
 
-        if input_validation(drink_to_be_added):
+        if string_not_empty(drink_to_be_added):
             pass
-        elif input_validation == False:
-            print("A blank name cannot be entered into the system.")
+        else:
+            print("Empty data cannot be added.")
             return
 
-        if dupe__drink_checker(drink_to_be_added):
+        if drink_is_dupe(drink_to_be_added):
             return
         else:
             return write_drinks_to_db(drink_to_be_added)
@@ -79,10 +87,8 @@ def write_drinks_to_db(drink_to_be_added):
         cursor.close()
         db.close()
 
-def dupe__drink_checker(drink):
+def drink_is_dupe(drink):
     if drink in DRINKS_DATA.values():
-        print(f"{drink} is a duplicate drink and cannot be added again.")
-        time.sleep(1)
         return True
 
 ### PEOPLE
@@ -119,13 +125,14 @@ def input_add_to_people():
 
         full_name = first_name + " " + last_name
 
-        if input_validation(full_name):
+        if string_not_empty(full_name):
             pass
-        elif input_validation(full_name) == True:
-            print("Unable to add name: empty names cannot be entered into the system.")
-            return
+        else:
+            print("Empty data cannot be added.")
+            return 
 
         if is_dupe_name(full_name):
+            print(f"\n'{full_name}' is already on the list and cannot be added again.")
             return
 
         else:
@@ -141,7 +148,6 @@ def input_add_to_people():
         
 def is_dupe_name(full_name):
     if full_name in PEOPLE_DATA.values():
-        print(f"{full_name} is a duplicate name and cannot be added again.")
         time.sleep(1)
         return True
 
