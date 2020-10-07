@@ -46,7 +46,7 @@ def menu_response_handler(answer):
 
         elif answer == 4: # Add person to db
             input_add_to_people()
-            menu()
+            run_again()
 
         elif answer == 5: # Add Drink
             input_add_to_drinks()
@@ -187,7 +187,7 @@ def start():
         read_drinks_from_db() #now load drinks from db
         read_people_from_db() 
         read_prefs_from_db()
-        maingreeter()       # display ASCII greeter, waits for any input
+        #maingreeter()       # display ASCII greeter, waits for any input
         os.system("clear")  # clear screen to refine display
         menu()              # call menu, ASCII replaced by identical art, menu displays underneath
         
