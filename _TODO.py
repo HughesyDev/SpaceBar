@@ -6,26 +6,17 @@
 # 2. DEMO APP
 #     - Make sure it actually works beforehand, TEST that anything taking input accepts the correct input and handles invalid input.
 
-# # DEMO IS A WEEK ON TUESDAY to people from other cohort, Infinity Works people.
-
 # Look into UUID? Unique Identifier (low collision chance of hash thing?)
-
-
-''' "SPECIAL SAUCE"
- Cheryse's had nice printout of rounds, it had age/alcoholic drinks etc.
- # What can you do for yours?
-'''
 
 # TODO: Change "Add drink" to "check if a drink you like is in stock."
 # TODO: Check what user added against a SET of many more drinks. If in stock: return it, add to db, load from db.
-
 # TODO: Add column for hot/cold drinks
 # TODO: Ask user if they want to see hot drinks or cold drinks table.
 # TODO: Hot drinks also have additional properties: milk, sugar, complementary biscuit.
 
 # TODO: Create Drinks class? Subclass for hot / cold? (STRETCH goal)
 
-# TODO: ##### Add an actual proper list of drinks.
+# Upload Prezi slide to LinkedIn / 
 
 # MUST: 
 ''' DONE: Reimplement people retrieval/adding via db'''
@@ -36,8 +27,12 @@
 ''' DONE: Amend people table to accept firstname and surname.'''
 # TODO BRANCH: Add validation for adding people/drinks to catch empty strings.
 ''' DONE: First Draft of JDE CV -  look through CherryTree notes'''
+# TODO: Add an actual proper list of drinks.
+# TODO: Print Prefs: fix formatting.
 
-
+########################## Python recognises empty strings as False
+########################## so do: def func(x) return x is False
+#################### Ternary: add_to_db if func(x) else print("Empty strings not accepted.")
 
 # -----------------------
 
