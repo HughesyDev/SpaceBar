@@ -12,10 +12,6 @@ from src.mysql_db import connect, read_drinks_from_db, read_people_from_db, read
 from src.mysql_db import input_add_to_drinks , input_add_to_people , write_person_to_db, DRINKS_DATA
 from src.mysql_db import PEOPLE_DATA, PREFS_DATA, db_data_in_str, db_prefs_in_str, faves_write_fave_to_db
 
-# IT'S NOT a judgy demo,it's about 
-# Present - 
-# You do need to be a competent SWE to be a DE.
-
 preferences = {}
 
 def menu():
@@ -191,7 +187,7 @@ def start():
         read_drinks_from_db() #now load drinks from db
         read_people_from_db() 
         read_prefs_from_db()
-        #maingreeter()       # display ASCII greeter, waits for any input
+        maingreeter()       # display ASCII greeter, waits for any input
         os.system("clear")  # clear screen to refine display
         menu()              # call menu, ASCII replaced by identical art, menu displays underneath
         
