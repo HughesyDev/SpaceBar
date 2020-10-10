@@ -29,59 +29,62 @@ def menu():
 def menu_response_handler(answer):
     '''# Process the users response'''
     print("")
+    CREATE_ROUND = 1
+    PRINT_PEOPLE = 2
+    PRINT_DRINKS = 3
+    ADD_PERSON   = 4
+    ADD_DRINK    = 5
+    SET_DRINK_PREF = 6
+    PRINT_DRINK_PREFS  = 7
+    SAVE_AND_EXIT_APP = 8 
 
     try:
-        if answer == 1:   # create Round
+        if answer == CREATE_ROUND:
             round_confirmation()
 
-        if answer == 2:   # print people data
+        if answer == PRINT_PEOPLE:   
             read_people_from_db() # asks db for an updated list of people incase this has changed.
             create_table("people", db_data_in_str(PEOPLE_DATA))
             run_again()
 
-        elif answer == 3: # print drinks
+        elif answer == PRINT_DRINKS:
             read_drinks_from_db()
             create_table("drinks", db_data_in_str(DRINKS_DATA))
             run_again()
 
-        elif answer == 4: # Add person to db
+        elif answer == ADD_PERSON: 
             input_add_to_people()
             run_again()
 
-        elif answer == 5: # Add Drink
+        elif answer == ADD_DRINK: 
             input_add_to_drinks()
             run_again()
 
-        elif answer == 6: # set drink preferences
+        elif answer == SET_DRINK_PREF:
             faves_set_drink_prefs()
             print("\nFavourite has been set.")
 
-        elif answer == 7: # print drink preferences
+        elif answer == PRINT_DRINK_PREFS: 
             read_prefs_from_db()
             create_table("drink preferences", db_prefs_in_str(PREFS_DATA))
             run_again()
 
-        elif answer == 8: # save and quit
+        elif answer == SAVE_AND_EXIT_APP:
             #save_data(PEOPLE_FILEPATH, people)
             #save_data(DRINKS_FILEPATH, drinks)
             quit()
+
         elif answer == "" or " ":
             os.system("clear")
             menu()
+
         else:
-            os.system("clear")
-            greeting_ascii_art()
-            menu_text()
             print("I'm sorry, I didn't understand that response, please try again.\n")
-            answer = int(input("\nEnter your selection: "))
-            response(answer)
-            os.system("clear")
-            menu()
+            run_again()
+
     except Exception as e:
         print(f"Exception raised with the following error:\n {e}\n")
-        print("Returning to Menu.")
-        os.system("clear")
-        menu()
+        run_again()
 
 # Round stuff
 
@@ -104,35 +107,30 @@ def round_submenu():
     round_submenu_choice(choice)
 
 def round_submenu_choice(choice):
+    ADD_AN_ORDER_TO_ROUND = 1
+    PRINT_CURRENT_ROUND_DETAILS = 2
+    FINALISE_ORDER_PRINT_RECEIPT = 3
+    CANCEL_ROUND_EXIT_TO_MENU = 4
+
     print("\nEnter your selection: ")
     answer = input(">>> ")
 
-    if answer == 1: # add order to round
-        name = input("Enter a name:\n>>> ")
-        drink - input("What drink:\n>>> ")
-    elif answer == 2: # check curr round info
-        pass
-    elif answer == 3: # finalise order, print receipt
-        pass
-    elif answer == 4: # cancel round and exit to menu
-        menu()
-
-    try:
-        if answer == 1:   # Add order to round
+    try: 
+        if answer == ADD_AN_ORDER_TO_ROUND: 
+            name = input("Enter a name:\n>>> ")
+            drink - input("What drink:\n>>> ")
+        elif answer == PRINT_CURRENT_ROUND_DETAILS:
             pass
-        elif answer == 2:   # Print current round info
+        elif answer == FINALISE_ORDER_PRINT_RECEIPT: 
             pass
-        elif answer == 3:   # "Finalise" order
-            pass
-        elif answer == 4:   # Cancel Round and exit to menu
-            pass
+        elif answer == CANCEL_ROUND_EXIT_TO_MENU: 
+            menu()
         else:
             unrecognised_command()
 
     except Exception as e:
         print(f"Exception raised with the following error:\n {e}")
-        print("Returning to Menu.")
-        menu()
+        run_again()
 
 # favourites_handling_funcs
 
