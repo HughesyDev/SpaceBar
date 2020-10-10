@@ -8,7 +8,7 @@ DEMO:
     - Make sure it actually works beforehand, TEST that anything taking input accepts the correct input and handles invalid input.
 '''
 
-# Upload Prezi slide to LinkedIn / 
+# Upload Prezi slide to LinkedIn ?
 
 # TODO: Change "Add drink" to "check if a drink you like is in stock."
 # TODO: Check what user added against a SET of many more drinks. If in stock: return it, add to db, load from db.
@@ -31,6 +31,7 @@ DEMO:
 ''' DONE: First Draft of JDE CV -  look through CherryTree notes'''
 ''' DONE: BRANCH: Add an actual proper list of drinks (Coke, Lemonade, Water)'''
 # TODO BRANCH: Print Prefs: fix formatting.
+# TODO BRANCH: Refactor menu_response code, change from if/else to i.e. a dict of {[text_string]: function_called}
 
 #~~~~~~~~~~ SHOULD:
 # TODO BRANCH: Complete Round class setup (without db interaction)
