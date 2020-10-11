@@ -3,6 +3,7 @@ import unittest
 import os
 import sys
 import time
+from datetime import datetime
 from src.constants import PEOPLE_FILEPATH, DRINKS_FILEPATH
 from src.core.persistence.data_persistence import save_data
 from src.core.formatting.formatting_funcs import menu_text,get_table_width,print_header,print_line,create_table,clear_and_show_logo
@@ -29,18 +30,18 @@ def menu():
 def menu_response_handler(answer):
     '''# Process the users response'''
     print("")
-    CREATE_ROUND = 1
-    PRINT_PEOPLE = 2
-    PRINT_DRINKS = 3
-    ADD_PERSON   = 4
-    ADD_DRINK    = 5
-    SET_DRINK_PREF = 6
-    PRINT_DRINK_PREFS  = 7
-    SAVE_AND_EXIT_APP = 8 
+    CREATE_ROUND     = 1
+    PRINT_PEOPLE     = 2
+    PRINT_DRINKS     = 3
+    ADD_PERSON       = 4
+    ADD_DRINK        = 5
+    SET_PREFS        = 6
+    PRINT_PREFS      = 7
+    EXIT_APP         = 8
 
     try:
         if answer == CREATE_ROUND:
-            round_confirmation()
+            round_initialisation()
 
         if answer == PRINT_PEOPLE:   
             read_people_from_db() # asks db for an updated list of people incase this has changed.
@@ -60,16 +61,16 @@ def menu_response_handler(answer):
             input_add_to_drinks()
             run_again()
 
-        elif answer == SET_DRINK_PREF:
+        elif answer == SET_PREFS:
             faves_set_drink_prefs()
             print("\nFavourite has been set.")
 
-        elif answer == PRINT_DRINK_PREFS: 
+        elif answer == PRINT_PREFS: 
             read_prefs_from_db()
             create_table("drink preferences", db_prefs_in_str(PREFS_DATA))
             run_again()
 
-        elif answer == SAVE_AND_EXIT_APP:
+        elif answer == EXIT_APP or "exit" or "quit":
             #save_data(PEOPLE_FILEPATH, people)
             #save_data(DRINKS_FILEPATH, drinks)
             quit()
@@ -86,53 +87,135 @@ def menu_response_handler(answer):
         print(f"Exception raised with the following error:\n {e}\n")
         run_again()
 
-# Round stuff
+# Round handler functions
 
-def round_confirmation():
-    print("Who is paying for this round?")
-    bill_payer = input(">>> ")
+def round_submenu_text(round):
+    os.system("clear")
+    greeting_ascii_art()
+    print(f"Your round ID: '{round.title}'")
+    print(f"Bill-payer for this round: {round.bill_payer}\n")
 
-    if bill_payer not in people:
-            people.append(bill_payer) # bill payer just joined, therefore added to list of group
-            
-    current_round = Round(bill_payer)
-    round_submenu()
+    print("  1 | Add an order to the round.")
+    print("  2 | Print round details.")
+    print("  3 | Complete your order.")
+    print("  4 | Cancel and return to menu")
 
-def round_submenu():
-    print("[1] Add an order to the round.")
-    print("[2] Check current round information.")
-    print("[3] Finalise order.")
-    print("[4] Cancel round and return to menu")
-    choice = int(input(">>> "))
-    round_submenu_choice(choice)
+def round_initialisation():
+    read_people_from_db() # asks db for an updated list of people incase this has changed.
+    read_drinks_from_db()
 
-def round_submenu_choice(choice):
+    try:
+        create_table("people", db_data_in_str(PEOPLE_DATA))
+        bill_payer = input("\nPlease enter the ID of the bill payer for this round:\n>>> ")
+
+        while len(bill_payer) == 0:
+            bill_payer = input(("Bill payer cannot be empty. Please re-enter a valid ID:\n>>> "))
+        
+        bill_payer = int(bill_payer)
+
+
+        if bill_payer not in PEOPLE_DATA.keys():
+            print("This user is not recognised")
+            run_again()
+        
+        bill_payer = PEOPLE_DATA[bill_payer] # transform ID into the respective name for person/drink
+        bill_payer = bill_payer.replace(" ", "_").lower() # tidy up display
+
+        # Generate unique-ish, but meaningful title for the round.
+        round_title = f"{bill_payer}_{current_time()}" # example "[ID][HH:MM:SS]" --> angelica_23:27:16
+        round_title = Round(round_title, bill_payer) # initialise the round, set title and bill-payer
+
+        round_submenu_handler(round_title) # send the initialised round obj to handler to further modify
+
+    except Exception as e: 
+        print(f"round_initialisation ERROR with:\n>>>{e}")
+        run_again()
+
+def round_submenu_handler(round):
     ADD_AN_ORDER_TO_ROUND = 1
     PRINT_CURRENT_ROUND_DETAILS = 2
-    FINALISE_ORDER_PRINT_RECEIPT = 3
+    FINALISE_ORDER = 3
     CANCEL_ROUND_EXIT_TO_MENU = 4
 
-    print("\nEnter your selection: ")
-    answer = input(">>> ")
+    round_submenu_text(round)
+    
 
     try: 
-        if answer == ADD_AN_ORDER_TO_ROUND: 
-            name = input("Enter a name:\n>>> ")
-            drink - input("What drink:\n>>> ")
-        elif answer == PRINT_CURRENT_ROUND_DETAILS:
-            pass
-        elif answer == FINALISE_ORDER_PRINT_RECEIPT: 
-            pass
-        elif answer == CANCEL_ROUND_EXIT_TO_MENU: 
+        submenu_selection = input("\nEnter menu selection:\n>>> ")
+        
+        while True:
+            if len(submenu_selection) == 0:
+                submenu_selection = input("Invalid input. Please try again:\n>>> ")
+            
+            elif submenu_selection.isnumeric():
+                break
+            else:
+                submenu_selection = input("Invalid input. Please try again:\n>>> ")
+
+        submenu_selection = int(submenu_selection)
+
+        if submenu_selection == ADD_AN_ORDER_TO_ROUND: 
+            round_submenu_text(round)
+            print("")
+            create_table("people", db_data_in_str(PEOPLE_DATA))
+            person_id = int(input("\nChoose person by their ID number:\n>>> "))
+
+            round_submenu_text(round)
+            print("")
+            create_table("drinks", db_data_in_str(DRINKS_DATA))
+            drink_id = int(input("\nChoose drink by its ID number:\n>>> "))
+
+
+
+            person_name = PEOPLE_DATA[person_id] # transform ID into the respective name
+            drink_name  = DRINKS_DATA[drink_id]
+
+            round.add_to_round(person_name, drink_name)
+            print(f"\nOrder added to round.")
+            round_run_again(round)
+
+        elif submenu_selection == PRINT_CURRENT_ROUND_DETAILS:
+            print("")
+            create_table("Round Details", db_data_in_str(round.orders))
+            round_run_again(round)
+
+        elif submenu_selection == FINALISE_ORDER: 
+            print("")
+            output = [
+                    "Sending your order to bar staff...",
+                    "Order received...",
+                    "Your drinks will be with you shortly.",
+                    "...",
+                    "Receipt formatting not yet implemented <3"]
+
+            for item in output:
+                print(item, flush=True)
+                time.sleep(2)
+
+            run_again()
+
+        elif submenu_selection == CANCEL_ROUND_EXIT_TO_MENU: 
             menu()
+
         else:
             unrecognised_command()
 
     except Exception as e:
         print(f"Exception raised with the following error:\n {e}")
-        run_again()
+        round_run_again(round)
 
-# favourites_handling_funcs
+def round_run_again(round):
+    '''# Prompts user to hit Enter to return to the round submenu'''
+    while True:
+        try:
+            _answer = input("\nPress enter to return to the round submenu.")
+            round_submenu_handler(round)
+        except Exception:
+            break
+    
+
+
+# drink-preferences handler functions
 
 def faves_set_drink_prefs():
     read_people_from_db()
@@ -176,8 +259,13 @@ def run_again():
         try:
             _answer = input("\nPress enter to return to the menu.")
             menu()
-        except EOFError:
+        except Exception:
             break
+
+def current_time():
+    now = datetime.now()
+    current_time = now.strftime("%H:%M:%S")
+    return current_time
 
 # Entry point / funcs
 
