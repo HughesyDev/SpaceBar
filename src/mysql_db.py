@@ -1,5 +1,7 @@
 import pymysql
 import time
+import os
+import sys
 
 DRINKS_DATA = {}
 PEOPLE_DATA = {}
@@ -15,10 +17,6 @@ def connect():
                             )
     cursor = db.cursor()
     return db, cursor
-
-def input_validation(input):
-    if input == "" or " ":
-        return False
 
 ### DRINKS
 
@@ -43,31 +41,26 @@ def read_drinks_from_db():
     for id, drink in drinks_dump:
         DRINKS_DATA[id] = drink
 
-def string_not_empty(string):
-    if string:
-        return True
-    elif string == "" or " ":
-        return False
-    else:
-        return False
-
 def input_add_to_drinks():
     print("What drink do you want to add?")
+
     try: 
         drink_to_be_added = input(">>> ").strip() #remove whitespace before/after
 
-        if string_not_empty(drink_to_be_added):
-            pass
-        else:
-            print("Empty data cannot be added.")
+        while len(drink_to_be_added) == 0: # check if empty input entered. If it is: prompt again for input
+            print("\nCannot add an empty item to the list.")
+            drink_to_be_added = input(">>> ").strip()
+        
+        if drink_is_dupe(drink_to_be_added):
+            print("\nCannot add duplicate entry.")
             return
 
-        if drink_is_dupe(drink_to_be_added):
-            return
         else:
             return write_drinks_to_db(drink_to_be_added)
+
     except Exception as e:
         print(f"ERROR:\n{e}")
+
     finally:
         return
 
@@ -120,16 +113,18 @@ def read_people_from_db():
 def input_add_to_people():
     print("Who do you want to add?")
     try:
-        first_name = input("\nFirst name:\n>>> ").strip() #remove whitespace before/after
+
+        first_name = input("\nFirst name:\n>>> ").strip() # remove any leading/trailing whitespace 
+        while len(first_name) == 0:
+                print("\nFirst name cannot be empty. Please retry.")
+                first_name = input(">>> ").strip()
+
         last_name = input("\nLast name:\n>>> ").strip()
+        while len(last_name) == 0:
+                print("\nLast name cannot be empty. Please retry.")
+                last_name = input(">>> ").strip()
 
         full_name = first_name + " " + last_name
-
-        if string_not_empty(full_name):
-            pass
-        else:
-            print("Empty data cannot be added.")
-            return 
 
         if is_dupe_name(full_name):
             print(f"\n'{full_name}' is already on the list and cannot be added again.")
