@@ -1,11 +1,7 @@
-- Using return statements properly, understand differences between print and return in functions.
-
-- TESTING is a big issue. Understanding a "testing mindset" and knowing what to test
-- TESTING implementation, lots of confusion around mocking and patching initially, 
-    further self-guided instruction is helping with this.
 
 - Intro & ASCII art: had some trouble implementing timing between first word and the next.
-    This was caused by a misunderstanding of the 
+    This was caused by a misunderstanding of the timer library 
+        - and not being familiar with "flushing" the print function.
 
 - Structuring of the "User Interface". I wanted the app to appear as though it's a single screen.
     I made use of the system.os("clear") method of clearing the terminal window for clarity/elegance
@@ -20,8 +16,6 @@
 - Managing code cluttering
     I quickly found it difficult to navigate the files my code was in due to the amount of code in them.
     When files started to get to 200+ lines of code with a dozen functions, I looked into splitting into further modules.
-    i.e. you have your menu, then favourites within that.
-        Then faves has adding/changing functions, and input validation for those functions.
 
 
 Further steps / things I would like to have explored further:

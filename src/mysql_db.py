@@ -195,14 +195,16 @@ def read_prefs_from_db():
 def faves_write_fave_to_db(person_id, drink_id):
     db, cursor = connect()
 
-    user_id = int(person_id)
-    user_pref = int(drink_id)
-    sql = f'UPDATE people SET drink_id = ({user_pref}) WHERE id = ({user_id});'
+    user_id = person_id
+    user_pref = drink_id
+
+    sql = 'UPDATE people SET drink_id = %s WHERE id = %s'
+    val = user_pref, user_id
     
 
     try:
         with cursor:
-            cursor.execute(sql)
+            cursor.execute(sql, val)
 
     except Exception as err:
         print(f"ERROR with:\n{err}")
@@ -210,6 +212,8 @@ def faves_write_fave_to_db(person_id, drink_id):
     finally:
         cursor.close()
         db.close()
+        print("Favourite has been set.")
+        return
 
 #### 
 

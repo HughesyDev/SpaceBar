@@ -16,14 +16,13 @@
 ''' DONE: Reimplement Round class setup (without db interaction)'''
 # TODO BRANCH: Round: add receipt output
 
-# TODO BRANCH: Fix formatting to take in two columns of data for prefs/orders.        
+''' DONE: Fix formatting to take in two columns of data for prefs/orders.'''
 
 #~~~~~~~~~~ COULD:
 ''' DONE: Allowing user to update their drink preference'''
 ''' DONE: Stop user from adding duplicate entries to people'''
 ''' DONE: Stop user from adding duplicate entries to drinks'''
 # TODO: Ensure named placeholders used for all db-write functions.
-        # Use %s and %d - when you use those, python sends the SQL first, the data second. It is THE WAY to do SQL.
 
 # TODO BRANCH: Persist Round information in the db (
         # Round table

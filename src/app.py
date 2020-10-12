@@ -21,7 +21,7 @@ def menu():
     greeting_ascii_art()
     menu_text()
     try:
-        answer = int(input("\nEnter your selection: "))
+        answer = int(input("\nEnter your selection:\n>>> "))
     except:
         menu()
     time.sleep(.500)
@@ -63,15 +63,17 @@ def menu_response_handler(answer):
 
         elif answer == SET_PREFS:
             faves_set_drink_prefs()
-            print("\nFavourite has been set.")
 
         elif answer == PRINT_PREFS: 
             try:
                 read_prefs_from_db()
                 new_table("drink preferences", PREFS_DATA)
-                run_again()
+            
             except Exception as e:
                 print(f"ERROR handling menu response:\n{e}")
+            
+            finally:
+                run_again()
 
         elif answer == EXIT_APP or "exit" or "quit":
             #save_data(PEOPLE_FILEPATH, people)
@@ -277,7 +279,7 @@ def start():
         read_drinks_from_db() #now load drinks from db
         read_people_from_db() 
         read_prefs_from_db()
-        #maingreeter()       # display ASCII greeter, waits for any input
+        maingreeter()       # display ASCII greeter, waits for any input
         os.system("clear")  # clear screen to refine display
         menu()              # call menu, ASCII replaced by identical art, menu displays underneath
         
