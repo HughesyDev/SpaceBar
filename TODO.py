@@ -12,21 +12,27 @@
 ''' DONE: BRANCH: Add an actual proper list of drinks (Coke, Lemonade, Water)'''
 # TODO: Try to look for places where you can make the code more readable / "read like a story"
 
+
+
+#### Use %s and %d - when you use those, python sends the SQL first, the data second. It is THE WAY to do SQL.
+
 #~~~~~~~~~~ SHOULD:
 ''' DONE: Reimplement Round class setup (without db interaction)'''
 # TODO BRANCH: Round: add receipt output
-# TODO BRANCH: Round: set favourite as default
-# TODO BRANCH: Print Prefs/order details: fix formatting to take in two columns of data.
+# TODO BRANCH: Round: set drink_pref as default drink choice?
+
+# TODO BRANCH: Fix formatting to take in two columns of data for prefs/orders.
         # Unpacking things you send through to menu
         # then iterating over the unpacked data into to fields, then width etc. for them.
+        
 # TODO BRANCH: Refactor menu_response code
-        # Change from if/else to i.e. a dict of {[text_string]: function_called}
-# TODO: Avoid SQL injection by implementing 
+        # Change from if/else to i.e. a dict of {[menu_text]: function_called}
 
 #~~~~~~~~~~ COULD:
 ''' DONE: Allowing user to update their drink preference'''
 ''' DONE: Stop user from adding duplicate entries to people'''
 ''' DONE: Stop user from adding duplicate entries to drinks'''
+''' DONE: Confirm db write queries use named placeholders'''
 
 # TODO BRANCH: Persist Round information in the db (
         # Round table
@@ -41,8 +47,10 @@
 # TODO BRANCH: Does the drink table hold extra drink information such as temperature, milk percentage and quantity?	YES	NO'''	
 # TODO BRANCH: create a function that rips down db tables and recreates to make dev easier
 
-# TODO: Create Drinks class? Subclass for hot / cold? (STRETCH goal)
-        # Add column for hot/cold drinks
+# TODO: Implement Drinks class. 
+        # Subclass for hot drinks / cold drinks
+        # Add column for hot/cold drinks in drinks table
+        # Add column (bool) for alcoholic/not
         # Ask user if they want to see hot drinks or cold drinks table.
         # Hot drinks also have additional properties: milk, sugar, complementary biscuit.
 

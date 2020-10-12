@@ -6,7 +6,7 @@ import time
 from datetime import datetime
 from src.constants import PEOPLE_FILEPATH, DRINKS_FILEPATH
 from src.core.persistence.data_persistence import save_data
-from src.core.formatting.formatting_funcs import menu_text,get_table_width,print_header,print_line,create_table,clear_and_show_logo
+from src.core.formatting.formatting_funcs import menu_text,get_table_width,print_header,print_line,create_table,clear_and_show_logo, new_table
 from src.core.formatting.ascii_greeter import maingreeter, greeting_ascii_art
 from src.models.Round import Round
 from src.mysql_db import connect, read_drinks_from_db, read_people_from_db, read_prefs_from_db 
@@ -176,7 +176,7 @@ def round_submenu_handler(round):
 
         elif submenu_selection == PRINT_CURRENT_ROUND_DETAILS:
             print("")
-            create_table("Round Details", db_data_in_str(round.orders))
+            new_table("Round Details", round.orders)
             round_run_again(round)
 
         elif submenu_selection == FINALISE_ORDER: 
