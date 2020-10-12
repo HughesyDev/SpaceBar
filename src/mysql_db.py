@@ -187,8 +187,10 @@ def read_prefs_from_db():
     
     for first_name, last_name, drink_id in prefs_dump:
         fullname = first_name + " " + last_name
-        drink_id = DRINKS_DATA.get(drink_id)
-        PREFS_DATA[fullname] = drink_id
+
+        drink_name = DRINKS_DATA.get(drink_id)
+        
+        PREFS_DATA[fullname] = str(drink_name)
 
 def faves_write_fave_to_db(person_id, drink_id):
     db, cursor = connect()

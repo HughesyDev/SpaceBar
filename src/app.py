@@ -66,9 +66,12 @@ def menu_response_handler(answer):
             print("\nFavourite has been set.")
 
         elif answer == PRINT_PREFS: 
-            read_prefs_from_db()
-            create_table("drink preferences", db_prefs_in_str(PREFS_DATA))
-            run_again()
+            try:
+                read_prefs_from_db()
+                new_table("drink preferences", PREFS_DATA)
+                run_again()
+            except Exception as e:
+                print(f"ERROR handling menu response:\n{e}")
 
         elif answer == EXIT_APP or "exit" or "quit":
             #save_data(PEOPLE_FILEPATH, people)
@@ -119,10 +122,10 @@ def round_initialisation():
             run_again()
         
         bill_payer = PEOPLE_DATA[bill_payer] # transform ID into the respective name for person/drink
-        bill_payer = bill_payer.replace(" ", "_").lower() # tidy up display
+        title_name = bill_payer.replace(" ", "_").lower() # tidy up display
 
         # Generate unique-ish, but meaningful title for the round.
-        round_title = f"{bill_payer}_{current_time()}" # example "[ID][HH:MM:SS]" --> angelica_23:27:16
+        round_title = f"{title_name}_{current_time()}" # example "[ID][HH:MM:SS]" --> angelica_23:27:16
         round_title = Round(round_title, bill_payer) # initialise the round, set title and bill-payer
 
         round_submenu_handler(round_title) # send the initialised round obj to handler to further modify
@@ -195,7 +198,8 @@ def round_submenu_handler(round):
             run_again()
 
         elif submenu_selection == CANCEL_ROUND_EXIT_TO_MENU: 
-            menu()
+            print("Round cancelled.")
+            run_again()
 
         else:
             unrecognised_command()

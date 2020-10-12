@@ -28,7 +28,7 @@ class Round():
 
     def cancel_round(self):
         #round_directory.remove(self)
-        # atm due to no persistence, can just exit to menu and let the instance remain in app?
+        # not implemented atm due to round not being stored in db.
         pass
 
     def print_round_receipt(self):

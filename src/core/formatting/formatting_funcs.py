@@ -1,10 +1,10 @@
 def print_header(title, width):
-    print_soft_line(width)
-    print("|" + title.upper().center(width, " ") + "|")
+    #print_soft_line(width)
+    print(title.upper().center(width, " "))# + "|")
     print_soft_line(width)
 
 def print_soft_line(width):
-    print(f"+" + "-" * width + "+")
+    print("-" * width)
 
 
 def print_line(width):
@@ -35,8 +35,8 @@ def create_table(title, data):
     print_header(title, width)
 
     for item in data:
-        print("| " + item + (" " * (width-1 - len(item))) + "|")
-    print_soft_line(width)
+        print(" " + item + (" " * (width-1 - len(item)))) #+ "|")
+    #print_soft_line(width)
 
 def clear_and_show_logo():
     os.system("clear")
@@ -47,35 +47,39 @@ def clear_and_show_logo():
 
 dummydata = {"FIRST": "SECOND",
            "a": "b",
-           "aaaaaddddddddddddddddddddd":"bbsssssssssssssssssbb"}
+           "aaaaadd":"bbsssssbb"}
 
 def new_table(title, data): # expecting two pieces of data.
-    width = table_total_width(title, data)
-
-    SPACING = 2
 
     field_one, field_two = list(zip(*data.items()))
     width_field_one = len(max(field_one, key=len))
     width_field_two = len(max(field_two, key=len))
 
+    width = table_total_width(title, data)
+
+    if width % 2 == 1: # If width is odd number, title is off-centre, this evens width out for perfect centering of title
+        width+=1
+
+    SPACING = 2
+
     print_header(title, width)
 
     for first, second in data.items():
-        column_one = "|" + " " + first  + " " * (width_field_one - len(first))  + " " + "|"
-        column_two =       " " + second + " " * (width_field_two - len(second)) + " " + "|"
+        column_one = " " + first  + " " * (width_field_one - len(first))  + " " + "|"
+        column_two = " " + second + " " * (width_field_two - len(second))# + " " + "|"
         print(column_one + column_two)
 
-    print_soft_line(width)
+    #print_soft_line(width)
 
 def table_total_width(title, data):
     longest = len(title)
-    additional_spacing = 6
+    additional_spacing = 4
 
     for item1, item2 in data.items():
         if len(item1 + item2) > longest:
             longest = len(item1 + item2)
 
-    return longest + additional_spacing -1
+    return longest + additional_spacing
 
 
-new_table("TEST TITLE", dummydata)
+#new_table("TEST TITLE", dummydata)
