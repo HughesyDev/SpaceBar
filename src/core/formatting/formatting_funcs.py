@@ -30,12 +30,17 @@ def menu_text():
 
 def create_table(title, data):
     width = get_table_width(title, data)
-    if width % 2 == 1: # If width is odd number, title is off-centre, this evens width out for perfect centering of title
-        width+=1
+    width_is_odd = width % 2 == 1
+
+    if width_is_odd: # If width is odd number, title is off-centre, this evens width out for perfect centering of title
+        width += 1
+
     print_header(title, width)
 
+    padding = (" " * (width - 1 - len(item)))
+
     for item in data:
-        print(" " + item + (" " * (width-1 - len(item)))) #+ "|")
+        print(" " + item + padding) #+ "|")
     #print_soft_line(width)
 
 def clear_and_show_logo():
