@@ -215,19 +215,8 @@ def faves_write_fave_to_db(person_id, drink_id):
         print("Favourite has been set.")
         return
 
-#### 
-
 def db_data_in_str(data): # reformats db data dump from dict into string to print on menu
     data_list = []
     for id, name in data.items():
         data_list.append(f"{id} | {name}")
     return data_list
-
-def db_prefs_in_str(data): # changes drink id to its name then puts both into single string
-    prefs_list = []
-
-    for name, id in data.items():
-        prefs_list.append(f"{name} | {id}")
-    return prefs_list
-
-##
