@@ -1,17 +1,13 @@
-import csv
-import unittest
 import os
 import sys
 import time
 from datetime import datetime
-from src.constants import PEOPLE_FILEPATH, DRINKS_FILEPATH
-from src.core.persistence.data_persistence import save_data
 from src.core.formatting.formatting_funcs import menu_text,get_table_width,print_header,print_line,create_table,clear_and_show_logo, new_table
 from src.core.formatting.ascii_greeter import maingreeter, greeting_ascii_art
-from src.models.Round import Round
+from src.models.round import Round
 from src.mysql_db import connect, read_drinks_from_db, read_people_from_db, read_prefs_from_db 
 from src.mysql_db import input_add_to_drinks , input_add_to_people , write_person_to_db, DRINKS_DATA
-from src.mysql_db import PEOPLE_DATA, PREFS_DATA, db_data_in_str, db_prefs_in_str, faves_write_fave_to_db
+from src.mysql_db import PEOPLE_DATA, PREFS_DATA, db_data_in_str, faves_write_fave_to_db
 
 preferences = {}
 
@@ -75,9 +71,7 @@ def menu_response_handler(answer):
             finally:
                 run_again()
 
-        elif answer == EXIT_APP or "exit" or "quit":
-            #save_data(PEOPLE_FILEPATH, people)
-            #save_data(DRINKS_FILEPATH, drinks)
+        elif answer == EXIT_APP:
             quit()
 
         elif answer == "" or " ":
@@ -89,7 +83,7 @@ def menu_response_handler(answer):
             run_again()
 
     except Exception as e:
-        print(f"Exception raised with the following error:\n {e}\n")
+        print(f"Exception raised in 'menu_response_handler' with the following error:\n {e}\n")
         run_again()
 
 # Round handler functions
@@ -257,7 +251,7 @@ def faves_check_drink_id_valid(drink_id):
     return drink_id
 
 
-# App UX helper funcs
+# App UX / helper funcs
 
 def run_again():
     '''# Prompts user to hit Enter to return to the menu'''
