@@ -1,18 +1,28 @@
-# APP name: 'SpaceBar'
+# SpaceBar
 
-This app is an individually created, self-guided 'mini-project' that was developed during the first six weeks of Generation UK&I's Junior Data Engineering programme. This project kicked off my understanding and enthusiasm for using Python and SQL. Likewise I gained familiarity with:
+SpaceBar is my personal take on the "BrewApp" mini-project I was assigned to build during my Junior Data Engineering Bootcamp.
 
-- Using Docker to create project containers
-- Securing my development environment using virtualenv
-- Applying sensible source-control using Git
-- Ensuring app functionality via implementation of tests using the unittest library
-- Running my tests effectively with PyTest
+---
 
-SpaceBar is a personalised variation on the "round-making app" we were tasked to build. "SpaceBar" itself being a barely-creative play on words, but it sounded fun so why not?
+#### My Environment
 
-The idea behind the app is that you've reserved a table at a restaurant (iself called SpaceBar). You and your group take your seats, and on the table is a tablet with the SpaceBar app opened on it. Through this app (when it's completed), you and your party should be able to perform the below actions through a very simple, straightforward user experience. 
+My development machine runs Windows, if you use another OS such as a Mac or Linux system then the below commands may differ. 
 
-- Add people to your group
-- Add a drink to the list of available drinks
-- Store each person's drink preference
-- Order round(s) of drinks
+#### Virtual Environment
+  - To create the virtual environment after pulling this project run the below from the root of the app:
+  `python -m venv .venv`
+
+  - Then, to activate the virtual environment, run the below from the project root:
+  `source .venv/Scripts/activate`
+
+
+#### Requirements
+  - To install the requirements run the below from the root of the app:
+    - Ensure the virtual environment is activated beforehand.
+  `pip -m install requirements.txt`
+    - An unknown factor sometimes causes an error that the "cryptography" package is missing when running the app. This doesn't always appear but can be installed using the below command:
+  `pip install cryptography`
+
+#### Running the app
+  -  To begin running the app, run the below from the root of the project:
+  `python -m src.app`
