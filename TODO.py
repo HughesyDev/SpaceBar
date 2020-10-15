@@ -1,29 +1,12 @@
-# Upload Prezi slide to LinkedIn ?
+# Upload Prezi slide online ?
 
 #~~~~~~~~~~ MUST: 
-''' DONE: Reimplement people retrieval/adding via db'''
-''' DONE: Reimplement drinks retrieval/adding via db'''
-''' DONE: Add prefs column to people which is FK to drink_id''' # My GOD this took ages
-''' DONE: Reimplement pref adding via db'''
-''' DONE: Allow user to set their drink preference by name_id & drink_id'''
-''' DONE: Amend people table to accept firstname and surname.'''
-''' DONE: Add validation for adding people/drinks to catch empty strings.'''
-''' DONE: First Draft of JDE CV -  look through CherryTree notes'''
-''' DONE: BRANCH: Add an actual proper list of drinks (Coke, Lemonade, Water)'''
-# TODO: Try to look for places where you can make the code more readable / "read like a story"
 
 #~~~~~~~~~~ SHOULD:
-''' DONE: Reimplement Round class setup (without db interaction)'''
-# TODO BRANCH: Round: add receipt output
-
-''' DONE: Fix formatting to take in two columns of data for prefs/orders.'''
+# TODO: Look for places in the code where you can make the code more readable / "read like a story"
 
 #~~~~~~~~~~ COULD:
-''' DONE: Allowing user to update their drink preference'''
-''' DONE: Stop user from adding duplicate entries to people'''
-''' DONE: Stop user from adding duplicate entries to drinks'''
-# TODO: Ensure named placeholders used for all db-write functions.
-
+# TODO BRANCH: Round: add receipt output
 # TODO BRANCH: Persist Round information in the db (
         # Round table
         # Give each instance of Round a UniqueID ("bill_payer" + datetime of instance initialisation)
@@ -53,11 +36,6 @@
 # ~~~~~~~~~~ 
 
 # Look into UUID? Unique Identifier (low collision chance of hash thing?)
-
-# - Testing Suite
-# - Use more OOP
-# - Generate Unique ID for their order
-# - Print a receipt.
 
 # EXTRA FEATURES
 # - Leaderboards
