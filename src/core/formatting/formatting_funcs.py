@@ -40,7 +40,7 @@ def create_table(title, data):
     padding = (" " * (width - 1 - len(item)))
 
     for item in data:
-        print(" " + item + padding) #+ "|")
+        print(" " + item + padding)
     #print_soft_line(width)
 
 def clear_and_show_logo():
