@@ -8,7 +8,7 @@
 
 #~~~~~~~~~~ COULD:
 
-# TODO: Refactor menu_response code
+# TODO: Create new branch and refactor menu_response function into a dictionary of text:function pairs?
 
 # TODO: reimplement Drinks as a Drinks Class.
         # Subclass for hot drinks / cold drinks
