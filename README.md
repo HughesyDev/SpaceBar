@@ -20,8 +20,6 @@ My development machine runs Windows, if you use another OS such as a Mac or Linu
   - To install the requirements run the below from the root of the app:
     - Ensure the virtual environment is activated beforehand.
   `pip -m install requirements.txt`
-    - An unknown factor sometimes causes an error that the "cryptography" package is missing when running the app. This doesn't always appear but can be installed using the below command:
-  `pip install cryptography`
 
 #### Running the app
   -  To begin running the app, run the below from the root of the project:
