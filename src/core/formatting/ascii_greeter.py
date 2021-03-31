@@ -1,5 +1,6 @@
+import os
+import sys
 import time
-import sys, os
 
 
 def greeter(text, pause):
@@ -28,25 +29,4 @@ def maingreeter():
     greeting_ascii_art()
     print("Press Enter to access the menu!\n\n")
     _ = input()
-
-
-def vista():
-    print("""
-╭────────┬──────────────────────────────┬────────╮
-│        ├── SPACEBAR VIEWING GALLERY ──┤        │    
-│╭───────┴──────────────────────────────┴───────╮│                                           
-││   *                       .        |         ││ 
-││           .-.,="``"=.            ─ o ─       ││ 
-││           '=/_       \             |         ││ 
-││        *   |  '=._    |                    ' ││ 
-││             \     `=./`,        '            ││ 
-││          .   '=.__.=' `='                    ││              
-││                              .         *     ││                                             
-││     *                                        ││   
-│╰───────────┬──────────────────────┬───────────╯│
-│            ├── TIP YOUR SERVER! ──┤            │
-╰────────────┴──────────────────────┴────────────╯
-    """)
-
-
 

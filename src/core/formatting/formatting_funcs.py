@@ -1,6 +1,5 @@
 def print_header(title, width):
-    #print_soft_line(width)
-    print(title.upper().center(width, " "))# + "|")
+    print(title.upper().center(width, " "))
     print_soft_line(width)
 
 def print_soft_line(width):
@@ -41,20 +40,13 @@ def create_table(title, data):
 
     for item in data:
         print(" " + item + padding)
-    #print_soft_line(width)
 
 def clear_and_show_logo():
     os.system("clear")
     greeting_ascii_art
+    
 
-#### NEW TABLE TAKING IN i.e. ID : NAME : DRINK for prefs, or X ordered Y
-# Currently they take in a single string, but it LOOKS like it's formatted for two columns, it's ONE.
-
-dummydata = {"FIRST": "SECOND",
-           "a": "b",
-           "aaaaadd":"bbsssssbb"}
-
-def new_table(title, data): # expecting two pieces of data.
+def new_table(title, data): 
 
     field_one, field_two = list(zip(*data.items()))
     width_field_one = len(max(field_one, key=len))
@@ -74,8 +66,6 @@ def new_table(title, data): # expecting two pieces of data.
         column_two = " " + second + " " * (width_field_two - len(second))# + " " + "|"
         print(column_one + column_two)
 
-    #print_soft_line(width)
-
 def table_total_width(title, data):
     longest = len(title)
     additional_spacing = 4
@@ -85,6 +75,3 @@ def table_total_width(title, data):
             longest = len(item1 + item2)
 
     return longest + additional_spacing
-
-
-#new_table("TEST TITLE", dummydata)
