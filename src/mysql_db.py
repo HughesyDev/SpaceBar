@@ -1,7 +1,8 @@
-import pymysql
-import time
 import os
 import sys
+import time
+
+import pymysql
 
 DRINKS_DATA = {}
 PEOPLE_DATA = {}
@@ -30,7 +31,7 @@ def read_drinks_from_db():
             cursor.execute(RETRIEVE_DRINKS_QUERY)
             drinks_dump = cursor.fetchall()
 
-    except error as err:
+    except Exception as err:
         print(f"ERROR with:\n{err}")
 
     finally:
