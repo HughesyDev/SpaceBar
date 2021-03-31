@@ -4,7 +4,7 @@ import time
 from datetime import datetime
 from src.core.formatting.formatting_funcs import menu_text,get_table_width,print_header,print_line,create_table,clear_and_show_logo, new_table
 from src.core.formatting.ascii_greeter import maingreeter, greeting_ascii_art
-from src.models.round import Round
+from src.models.Round import Round
 from src.mysql_db import connect, read_drinks_from_db, read_people_from_db, read_prefs_from_db 
 from src.mysql_db import input_add_to_drinks , input_add_to_people , write_person_to_db, DRINKS_DATA
 from src.mysql_db import PEOPLE_DATA, PREFS_DATA, db_data_in_str, faves_write_fave_to_db
@@ -267,7 +267,7 @@ def current_time():
     current_time = now.strftime("%H:%M:%S")
     return current_time
 
-# Entry point / funcs
+# Entry point
 
 def start():
         read_drinks_from_db() #now load drinks from db
@@ -278,4 +278,5 @@ def start():
         menu()              # call menu, ASCII replaced by identical art, menu displays underneath
         
 if __name__ == "__main__":
+    # TODO: IF NO DATABASE EXISTS, CREATE TABLES
     start()
