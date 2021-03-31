@@ -1,4 +1,4 @@
-import csv 
+import csv
 
 def save_data(filepath, data):
     try:
