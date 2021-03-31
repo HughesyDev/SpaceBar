@@ -1,5 +1,6 @@
 import os
 import time
+from typing import Dict
 from datetime import datetime
 from src.core.formatting.formatting_funcs import (
     menu_text,
@@ -20,17 +21,18 @@ from src.mysql_db import (
 )
 from src.mysql_db import PEOPLE_DATA, PREFS_DATA, db_data_in_str, faves_write_fave_to_db
 
-preferences: Dict[str:str] = {}
+
+preferences: Dict[str, str] = {}
 
 
 def menu():
-    """# Base menu that displays on program start"""
+    """Base menu that displays on program start"""
     os.system("clear")
     greeting_ascii_art()
     menu_text()
     try:
         answer = int(input("\nEnter your selection:\n>>> "))
-    except:
+    except TypeError:
         menu()
     time.sleep(0.500)
     menu_response_handler(answer)
