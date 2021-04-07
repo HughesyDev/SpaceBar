@@ -1,14 +1,17 @@
+todo.*
+
 .vscode
 .env
 
 # venv
-.venv
+venv
 
 # python
 __pycache__
 __pycache__/
 /__pycache__
 /__pycache__/
+.mypy_cache/
 
 .pytest_cache
 
