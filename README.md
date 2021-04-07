@@ -1,27 +1,24 @@
-# SpaceBar
+# __SpaceBar__
 
-SpaceBar is my personal take on the "BrewApp" mini-project I was assigned to build during my Junior Data Engineering Bootcamp.
+SpaceBar started out as an individual programming project built during a data engineering programme I attended. The idea is: you arrive at the (fake)) SpaceBar restaurant, on your table there is a tablet device through which you order rounds of drinks and eventually receive your receipt.
 
----
+## __Running the app__
 
-#### My Environment
+> This setup works for Windows, commands below may vary for Mac or Linux machines.
 
-My development machine runs Windows, if you use another OS such as a Mac or Linux system then the below commands may differ. 
-
+## SET UP
 #### Virtual Environment
-  - To create the virtual environment after pulling this project run the below from the root of the app:
-  `python -m venv .venv`
 
-  - Then, to activate the virtual environment, run the below from the project root:
-  `source .venv/Scripts/activate`
+  - Create the virtual environment; first open a terminal an navigate to the root of the directory:
+    - run `python -m venv .venv`
 
+  - Activate the virtual environment:
+    - `source .venv/Scripts/activate`
 
 #### Requirements
-  - To install the requirements run the below from the root of the app:
-    - Ensure the virtual environment is activated beforehand.
+
+  - Install the package dependencies that allow the app to run:
   `pip -m install requirements.txt`
-    - An unknown factor sometimes causes an error that the "cryptography" package is missing when running the app. This doesn't always appear but can be installed using the below command:
-  `pip install cryptography`
 
 #### Running the app
   -  To begin running the app, run the below from the root of the project:

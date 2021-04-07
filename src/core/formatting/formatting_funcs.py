@@ -21,7 +21,6 @@ def get_table_width(title, data):
 
 
 def menu_text():
-    print("  1 | Order a round")
     print("  2 | Display members of your party")
     print("  3 | Show available drinks")
     print("  4 | Add a person")
@@ -35,17 +34,15 @@ def create_table(title, data):
     width = get_table_width(title, data)
     width_is_odd = width % 2 == 1
 
-    if (
-        width_is_odd
-    ):  # If width is odd number, title is off-centre, this evens width out for perfect centering of title
+    if (width_is_odd):  # If width is odd number, title is off-centre, this evens width out for perfect centering of title
         width += 1
 
     print_header(title, width)
 
-    padding = " " * (width - 1 - len(item))
+    # padding = " " * (width - 1 - len(item))
 
     for item in data:
-        print(" " + item + padding)
+        print(" " + item)# + padding)
 
 
 def clear_and_show_logo():

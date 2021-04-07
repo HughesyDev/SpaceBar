@@ -1,7 +1,4 @@
-import os
-import sys
 import time
-
 import pymysql
 
 DRINKS_DATA = {}
@@ -20,9 +17,6 @@ def connect():
     )
     cursor = db.cursor()
     return db, cursor
-
-
-### DRINKS
 
 
 def read_drinks_from_db():
@@ -95,9 +89,6 @@ def drink_is_dupe(drink):
         return True
 
 
-### PEOPLE
-
-
 def read_people_from_db():
     db, cursor = connect()
     global PEOPLE_DATA
@@ -166,7 +157,6 @@ def is_dupe_name(full_name):
 def write_person_to_db(first_name, last_name):
     db, cursor = connect()
 
-    # The query we send to the db
     sql = "INSERT INTO people (first_name, last_name) VALUES (%s, %s)"
     val = first_name, last_name
 
@@ -181,11 +171,6 @@ def write_person_to_db(first_name, last_name):
         db.close()
 
 
-### PREFERENCES
-
-# try adding non-existing drink by ID as a fave, or an ID out of range.
-
-
 def read_prefs_from_db():
     db, cursor = connect()
     global PREFS_DATA
@@ -196,7 +181,7 @@ def read_prefs_from_db():
             cursor.execute(RETRIEVE_PREFS_QUERY)
             prefs_dump = cursor.fetchall()
 
-    except error as err:
+    except Exception as err:
         print(f"ERROR with:\n{err}")
 
     finally:
@@ -217,7 +202,7 @@ def faves_write_fave_to_db(person_id, drink_id):
     user_id = person_id
     user_pref = drink_id
 
-    sql = "UPDATE people SET drink_id = %s WHERE id = %s"
+    sql = "UPDATE people SET drink_id = %s WHERE person_id = %s"
     val = user_pref, user_id
 
     try:
@@ -225,18 +210,16 @@ def faves_write_fave_to_db(person_id, drink_id):
             cursor.execute(sql, val)
 
     except Exception as err:
-        print(f"ERROR with:\n{err}")
+        print(Exception)
 
     finally:
         cursor.close()
         db.close()
-        print("Favourite has been set.")
         return
 
 
-def db_data_in_str(
-    data,
-):  # reformats db data dump from dict into string to print on menu
+def db_data_in_str(data):
+    """reformats db data dump from dict into string to print on menu"""
     data_list = []
     for id, name in data.items():
         data_list.append(f"{id} | {name}")
